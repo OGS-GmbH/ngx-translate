@@ -15,7 +15,7 @@ Its clean API and minimal setup make it easy to integrate into both new and exis
 ## Installation
 To get started, you can install this package using your preferred package manager.
 ````shell
-npm install -D @ogs-gmbh/ngx-translate
+npm install @ogs-gmbh/ngx-translate
 ````
 
 <details>
@@ -23,11 +23,11 @@ npm install -D @ogs-gmbh/ngx-translate
 <br />
 
 ````shell
-yarn add -D @ogs-gmbh/ngx-translate
+yarn add @ogs-gmbh/ngx-translate
 ````
 
 ````shell
-pnpm install -D @ogs-gmbh/ngx-translate
+pnpm install @ogs-gmbh/ngx-translate
 ````
 
 </details>
