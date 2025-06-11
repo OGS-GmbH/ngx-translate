@@ -1,0 +1,13 @@
+{
+	"include": [
+		"src/**/*.spec.ts",
+		"src/**/*.d.ts"
+	],
+	"extends": "./tsconfig.prod.json",
+	"compilerOptions": {
+		"types": [
+			"jasmine"
+		],
+		"outDir": "./dist/spec"
+	}
+}

@@ -1,0 +1,49 @@
+{
+	"name": "@ogs/ngx-translate",
+	"version": "0.0.0",
+	"homepage": "http://ogs-hq-git.ogs.local/standard/shared/npm/ngx-m3-translate",
+	"author": "OGS GmbH",
+	"repository": {
+		"type": "git",
+		"url": "git+http://ogs-hq-git.ogs.local/standard/shared/npm/ngx-translate.git"
+	},
+	"scripts": {
+    "ci:build:prod": "ng build --configuration production"
+	},
+	"devDependencies": {
+		"@angular-devkit/build-angular": "^18.2.12",
+		"@angular/cli": "^18.2.12",
+		"@commitlint/cli": "^19.6.0",
+		"@commitlint/config-conventional": "^19.6.0",
+		"@eslint/js": "^9.16.0",
+		"@eslint/json": "^0.6.0",
+		"@eslint/markdown": "^6.2.1",
+		"@ogs-gmbh/linter": "^1",
+		"@stylistic/eslint-plugin-js": "^2.12.1",
+		"@stylistic/eslint-plugin-plus": "^2.12.1",
+		"@stylistic/eslint-plugin-ts": "^2.12.1",
+		"@types/eslint__js": "^8.42.3",
+		"angular-eslint": "^18.4.3",
+		"eslint": "^9.16.0",
+		"eslint-plugin-security": "^3.0.1",
+		"eslint-plugin-unicorn": "^56.0.1",
+		"globals": "^15.13.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^15.2.11",
+		"ng-packagr": "^18.2.1",
+		"npm-package-json-lint": "^8.0.0",
+		"tslib": "^2.8.1",
+		"typescript": "~5.5.4",
+		"typescript-eslint": "^8.18.0"
+	},
+  "peerDependencies": {
+		"@angular/common": "^18.2.1",
+		"@angular/core": "^18.2.1",
+		"@ogs/ngx-http": "~18.0.0",
+		"rxjs": "~7.8.1"
+	},
+  "sideEffects": false,
+	"publishConfig": {
+		"directory": "dist/prod"
+	}
+}

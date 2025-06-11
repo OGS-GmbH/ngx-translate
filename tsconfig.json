@@ -1,0 +1,41 @@
+{
+	"compilerOptions": {
+		"alwaysStrict": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strictBindCallApply": true,
+		"strictPropertyInitialization": true,
+		"useUnknownInCatchVariables": true,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
+		"moduleResolution": "bundler",
+		"module": "ES2022",
+		"importHelpers": true,
+		"noEmitHelpers": false,
+		"declaration": true,
+		"disableSizeLimit": false,
+		"esModuleInterop": true,
+		"isolatedModules": true,
+		"experimentalDecorators": true,
+		"lib": [
+			"ES2022",
+			"dom"
+		],
+		"target": "ES2022",
+		"skipLibCheck": true
+	},
+	"angularCompilerOptions": {
+		"enableI18nLegacyMessageIdFormat": false,
+		"strictInjectionParameters": true,
+		"strictInputAccessModifiers": true,
+		"strictTemplates": true,
+		"compilationMode": "partial"
+	}
+}

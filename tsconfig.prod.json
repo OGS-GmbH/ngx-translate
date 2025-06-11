@@ -1,0 +1,13 @@
+{
+	"files": [
+		"src/public-api.ts"
+	],
+	"include": [
+		"src/**/*.d.ts"
+	],
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./dist/prod",
+		"removeComments": true
+	}
+}
