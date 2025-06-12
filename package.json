@@ -39,7 +39,7 @@
   "peerDependencies": {
 		"@angular/common": "^18.2.1",
 		"@angular/core": "^18.2.1",
-		"@ogs/ngx-http": "~18.0.0",
+		"@ogs-gmbh/ngx-http": "^1",
 		"rxjs": "~7.8.1"
 	},
   "sideEffects": false,
