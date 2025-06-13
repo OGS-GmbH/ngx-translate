@@ -1,5 +1,5 @@
 import { CollectingStrategies } from "../enums/collecting-strategies.enum";
-import { HttpConfig } from "@ogs/ngx-http";
+import { HttpConfig, HttpHeadersOption, HttpOptions } from "@ogs-gmbh/ngx-http";
 
 export type LocaleConfig = {
   readonly value: string;
@@ -25,7 +25,10 @@ export type SpecificTranslateConfig = {
   } | undefined;
 };
 export type TranslateConfig = {
-  readonly http: HttpConfig;
+  readonly http: {
+    config: HttpConfig;
+    options: HttpOptions<never, HttpHeadersOption, never>;
+  };
   readonly translate: SpecificTranslateConfig;
 };
 

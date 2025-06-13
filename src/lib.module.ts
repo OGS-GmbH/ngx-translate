@@ -6,7 +6,7 @@ import { TranslationPipeModule } from "./pipe.module";
 import { TranslationService } from "./services/translation.service";
 import { TranslationStoreService } from "./services/translation-store.service";
 import { provideTranslationConfig } from "./providers/config.provider";
-import { provideTranslationHttpConfig } from "./providers/http.provider";
+import { provideTranslationHttpConfig, provideTranslationHttpOptions } from "./providers/http.provider";
 import { provideTranslationInterceptor } from "./providers/interceptor.provider";
 
 @NgModule({
@@ -31,7 +31,8 @@ export class TranslationModule {
       ngModule: TranslationModule,
       providers: [
         provideTranslationConfig(translateConfig.translate),
-        provideTranslationHttpConfig(translateConfig.http)
+        provideTranslationHttpConfig(translateConfig.http.config),
+        provideTranslationHttpOptions(translateConfig.http.options)
       ]
     };
   }

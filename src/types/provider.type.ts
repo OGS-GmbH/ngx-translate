@@ -1,9 +1,9 @@
-import { AdditionalsInRequest } from "@ogs/ngx-http";
+import { HttpHeadersOption, HttpOptions } from "@ogs-gmbh/ngx-http";
 import { PreloadingStrategies } from "../enums/preloading-strategies.enum";
 
 type TranslationBaseProvider = {
   readonly preloadingStrategy: PreloadingStrategies;
-  readonly additionalsInRequest?: AdditionalsInRequest | undefined;
+  readonly HttpOptions?: HttpOptions<never, HttpHeadersOption, never> | undefined;
 };
 
 export type TranslationPreloadProvider = TranslationBaseProvider & {

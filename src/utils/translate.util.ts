@@ -13,7 +13,6 @@ export const translateTokenByScopedFile = (scopedFile: ScopedFile, token: string
 
   if (!isTokenValid) return;
 
-  /* eslint-disable-next-line @security/detect-object-injection */
   return scopedFile[ token ];
 };
 export const translateTokenByScopedFiles = (scopedFiles: ScopedFile[], token: string): string | undefined => {
@@ -24,7 +23,6 @@ export const translateTokenByScopedFiles = (scopedFiles: ScopedFile[], token: st
 
     if (!isTokenValid) return false;
 
-    /* eslint-disable-next-line @security/detect-object-injection */
     translation = scopedFile[ token ];
 
     return true;

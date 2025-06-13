@@ -1,10 +1,10 @@
-import { AdditionalHeader, appendHttpHeaders } from "@ogs/ngx-http";
+import { HttpHeadersOption, HttpOptions, mergeHttpHeaders } from "@ogs-gmbh/ngx-http";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { Observable, retry, timeout } from "rxjs";
 import { SpecificTranslateConfig } from "../types/config.type";
 import { TRANSLATION_CONFIG_TOKEN } from "../tokens/config.token";
-import { TRANSLATION_HTTP_CONFIG } from "../tokens/http.token";
+import { TRANSLATION_HTTP_CONFIG, TRANSLATION_HTTP_OPTIONS } from "../tokens/http.token";
 
 @Injectable({
   providedIn: "root"
@@ -14,11 +14,9 @@ export class TranslationHttpSerivce {
 
   private readonly _translationConfig: SpecificTranslateConfig | null = inject(TRANSLATION_CONFIG_TOKEN, { optional: true });
 
-  public getWithRef$<T>(httpClientRef: Readonly<HttpClient>, scopeName: ReadonlyArray<string | null> | string | null, additionalHeaders?: AdditionalHeader[]): Observable<T> {
-    let httpHeaders: HttpHeaders = new HttpHeaders();
+  private readonly _translationHttpOptions: HttpOptions<never, HttpHeadersOption, never> = inject(TRANSLATION_HTTP_OPTIONS);
 
-    additionalHeaders !== undefined && (httpHeaders = appendHttpHeaders(httpHeaders, additionalHeaders));
-
+  public getWithRef$<T>(httpClientRef: Readonly<HttpClient>, scopeName: ReadonlyArray<string | null> | string | null, httpOptions?: HttpOptions<never, HttpHeadersOption, never>): Observable<T> {
     let path: string = this._translationHttpConfig;
 
     if (typeof scopeName === "string" || scopeName === null) {
@@ -35,7 +33,19 @@ export class TranslationHttpSerivce {
       path += `?${ urlSearchParams.toString() }`;
     }
 
-    return httpClientRef.get<T>(path, { responseType: "json", observe: "body", headers: httpHeaders }).pipe(
+    let headers: HttpHeaders = new HttpHeaders();
+
+    if (this._translationHttpOptions.headers !== undefined)
+      headers = mergeHttpHeaders(headers, this._translationHttpOptions.headers);
+
+    if (httpOptions?.headers !== undefined)
+      headers = mergeHttpHeaders(headers, httpOptions.headers);
+
+    return httpClientRef.get<T>(path, {
+      responseType: "json",
+      observe: "body",
+      headers
+    }).pipe(
       timeout(this._translationConfig?.timeout ?? 3000),
       retry(0)
     );

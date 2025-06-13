@@ -213,17 +213,13 @@ export class TranslationStoreService {
   }
 
   private _setStorageValue (dataType: "locale" | "translations", storageValue: unknown): void {
-    /* eslint-disable @security/detect-object-injection */
     storageValue === null
       ? this._storageAttributes[ dataType ].type.removeItem(this._storageAttributes[ dataType ].key)
       : this._storageAttributes[ dataType ].type.setItem(this._storageAttributes[ dataType ].key, JSON.stringify(storageValue));
-    /* eslint-enable @security/detect-object-injection */
   }
 
   private _getStorageValue (dataType: "locale" | "translations"): unknown {
-    /* eslint-disable @security/detect-object-injection */
     const serializedStorageValue: string | null = this._storageAttributes[ dataType ].type.getItem(this._storageAttributes[ dataType ].key);
-    /* eslint-enable @security/detect-object-injection */
 
     return serializedStorageValue ? JSON.parse(serializedStorageValue) : null;
   }

@@ -1,4 +1,4 @@
-import { AdditionalHeader, HttpRequestStatus } from "@ogs/ngx-http";
+import { HttpRequestStatus, HttpOptions, HttpHeadersOption } from "@ogs-gmbh/ngx-http";
 import { BehaviorSubject, EMPTY, Observable, Subject, catchError, combineLatestWith, distinctUntilChanged, filter, map, of, switchMap, tap } from "rxjs";
 import { Injectable, SkipSelf, inject } from "@angular/core";
 import { LocaleConfig, SpecificTranslateConfig } from "../types/config.type";
@@ -46,7 +46,7 @@ export class TranslationService {
    * @param {TranslationHttpSerivce} translationHttpService - The TranslationHttpService, that'll be used
    * @param {string} _locale - The locale, that should be preloaded
    * @param {string | null} scopeName - The scope name for the lookup of the translation
-   * @param {AdditionalHeader[] | undefined} additionalHeaders - Additional headers for the request
+   * @param {HttpOptions | undefined} httpOptions - Additional HTTP Options for the request
    * @returns {Observable<void>} - An observable to handle the status
    */
   /* eslint-disable-next-line @tseslint/class-methods-use-this, @tseslint/max-params */
@@ -56,7 +56,7 @@ export class TranslationService {
     translationHttpService: Readonly<TranslationHttpSerivce>,
     _locale: LocaleConfig,
     scopeName: ReadonlyArray<string | null> | string | null,
-    additionalHeaders?: AdditionalHeader[]
+    httpOptions?: HttpOptions<never, HttpHeadersOption, never>
   ): Observable<void> {
     /*
      * Handle resolve by store
@@ -80,7 +80,7 @@ export class TranslationService {
       return translationHttpService.getWithRef$<ScopedFile>(
         httpClient,
         scopeName,
-        additionalHeaders
+        httpOptions
       ).pipe(
         tap((scopedFile: ScopedFile): void => {
           translationStoreService.setScopedFile(scopeName, scopedFile);
@@ -101,7 +101,7 @@ export class TranslationService {
       return translationHttpService.getWithRef$<MultiScopedFile>(
         httpClient,
         extinctScopes,
-        additionalHeaders
+        httpOptions
       ).pipe(
         tap((multiScopedFile: MultiScopedFile): void => {
           const parsedMultiScopedFiles: ParsedMultiScopedFiles = parseMultiScopedFile(multiScopedFile);
@@ -121,14 +121,14 @@ export class TranslationService {
    * @param {string} token - The token to resolve the translation
    * @param {string | undefined} scopeName - A scope name to resolve the lookup
    * @param {string | undefined} value - The default value of the translation
-   * @param {AdditionalHeader[] | undefined} additionalHeaders - Additional headers for the request
+   * @param {HttpOptions | undefined} httpOptions - Additional HTTP Options for the request
    * @returns {Observable<string>} - An observable with the current translation as string
    */
   public translateTokenByLocale$ (
     token: string,
     value: string,
     scopeName?: ReadonlyArray<string | null> | string | null,
-    additionalHeaders?: AdditionalHeader[]
+    httpOptions?: HttpOptions<never, HttpHeadersOption, never>
   ): Observable<string> {
     return this._translationStoreService.getLocale$().pipe(switchMap((locale: LocaleConfig): Observable<string> => this._translateWithRef$(
       this._httpClient,
@@ -138,7 +138,7 @@ export class TranslationService {
       token,
       value,
       this._resolveScope(scopeName),
-      additionalHeaders
+      httpOptions
     )));
   }
 
@@ -148,14 +148,14 @@ export class TranslationService {
    * @param {string} token - The token to resolve the translation
    * @param {string | undefined} scopeName - A scope name to resolve the lookup
    * @param {string | undefined} value - The default value of the translation
-   * @param {AdditionalHeader[] | undefined} additionalHeaders - Additional headers for the request
+   * @param {HttpOptions | undefined} httpOptions - Additional HTTP Options for the request
    * @returns {Observable<string>} - An observable with the current translation as string
    */
   public translateTokenByCurrentLocale$ (
     token: string,
     value: string,
     scopeName?: ReadonlyArray<string | null> | string | null,
-    additionalHeaders?: AdditionalHeader[]
+    httpOptions?: HttpOptions<never, HttpHeadersOption, never>
   ): Observable<string> {
     const currentLocale: LocaleConfig = this._translationStoreService.getCurrentLocale();
 
@@ -167,7 +167,7 @@ export class TranslationService {
       token,
       value,
       scopeName,
-      additionalHeaders
+      httpOptions
     );
   }
 
@@ -180,7 +180,7 @@ export class TranslationService {
     translationStoreService: Readonly<TranslationStoreService>,
     translationHttpService: Readonly<TranslationHttpSerivce>,
     scopeName: string | null | ReadonlyArray<string | null>,
-    additionalHeaders?: AdditionalHeader[]
+    httpOptions?: HttpOptions<never, HttpHeadersOption, never>
   ): Observable<void> {
     return translationStoreService.getLocale$().pipe(switchMap((locale: LocaleConfig): Observable<void> => this._preloadWithRef$(
       httpClient,
@@ -188,7 +188,7 @@ export class TranslationService {
       translationHttpService,
       locale,
       scopeName,
-      additionalHeaders
+      httpOptions
     )));
   }
 
@@ -201,7 +201,7 @@ export class TranslationService {
     translationStoreService: Readonly<TranslationStoreService>,
     translationHttpService: Readonly<TranslationHttpSerivce>,
     scopeName: string | null | ReadonlyArray<string | null>,
-    additionalHeaders?: AdditionalHeader[]
+    httpOptions?: HttpOptions<never, HttpHeadersOption, never>
   ): Observable<void> {
     const currentLocale: LocaleConfig = translationStoreService.getCurrentLocale();
 
@@ -211,7 +211,7 @@ export class TranslationService {
       translationHttpService,
       currentLocale,
       scopeName,
-      additionalHeaders
+      httpOptions
     );
   }
 
@@ -313,7 +313,7 @@ export class TranslationService {
    * @param {TranslationStoreService} translationStoreService - The TranslationStoreService, that'll be used
    * @param {TranslationHttpSerivce} translationHttpService - The TranslationHttpService, that'll be used
    * @param {Array<string | null>} scope - The scope as Array, where string is an explicit scope and null is the global scope
-   * @param {AdditionalHeader[] | undefined} additionalHeaders - Additional headers for the request
+   * @param {HttpOptions | undefined} httpOptions - Additional HTTP Options for the request
    * @returns {Observable} - An observable with the (multi-)scoped file inside
    */
   /* eslint-disable-next-line @tseslint/max-params */
@@ -322,7 +322,7 @@ export class TranslationService {
     translationStoreService: Readonly<TranslationStoreService>,
     translationHttpService: Readonly<TranslationHttpSerivce>,
     scope: T,
-    additionalHeaders?: AdditionalHeader[]
+    httpOptions?: HttpOptions<never, HttpHeadersOption, never>
   ): Observable<T extends ReadonlyArray<string | null> ? MultiScopedFile : ScopedFile> {
     if (typeof scope === "string" || scope === null)
       translationStoreService.addNotifierScope({ scope, notifiers: null });
@@ -332,7 +332,7 @@ export class TranslationService {
 
     this._isHttpLoading.next(HttpRequestStatus.PENDING);
 
-    return translationHttpService.getWithRef$<T extends ReadonlyArray<string | null> ? MultiScopedFile : ScopedFile>(httpClient, scope, additionalHeaders).pipe(
+    return translationHttpService.getWithRef$<T extends ReadonlyArray<string | null> ? MultiScopedFile : ScopedFile>(httpClient, scope, httpOptions).pipe(
       catchError((): Observable<never> => {
         this._isHttpLoading.next(HttpRequestStatus.ERROR);
         this._isHttpLoading.next(null);
@@ -393,7 +393,7 @@ export class TranslationService {
    * @param {string} scopeName - The scope name for resolving the translation
    * @param {string} token - The token for resolving the translation
    * @param {string | undefined} value - The default value for the token
-   * @param {AdditionalHeader[] | undefined} additionalHeaders - Additional headers for the request
+   * @param {HttpOptions | undefined} httpOptions - Additional HTTP Options for the request
    * @returns {Observable<string>} - An observable with the translation as string inside
    *
    * Resolving steps:
@@ -416,7 +416,7 @@ export class TranslationService {
     token: string,
     value: string,
     scopeName?: ReadonlyArray<string | null> | string | null,
-    additionalHeaders?: AdditionalHeader[]
+    httpOptions?: HttpOptions<never, HttpHeadersOption, never>
   ): Observable<string> {
     let resolvedScopes: ReadonlyArray<string | null> | string | null | undefined;
 
@@ -455,7 +455,7 @@ export class TranslationService {
       const existingScopes: Array<string | null> = translationStoreService.getExistingNotifierScopes(resolvedScopes);
       const extinctScopes: Array<string | null> = resolvedScopes.filter((resolvedScope: string | null): boolean => !existingScopes.includes(resolvedScope));
       const existingNotifiers: Array<Observable<ScopedFile>> = existingScopes.map((existingScope: string | null): Observable<ScopedFile> => this._getScopedFileByNotifier(existingScope));
-      const extinctScopesHttp: Observable<ScopedFile> = this._getScopedFileByHttpWithRef$(httpClient, translationStoreService, translationHttpService, extinctScopes, additionalHeaders)
+      const extinctScopesHttp: Observable<ScopedFile> = this._getScopedFileByHttpWithRef$(httpClient, translationStoreService, translationHttpService, extinctScopes, httpOptions)
         .pipe(
           tap((multiScopedFile: ScopedFile | MultiScopedFile): void => {
             const castedMultiScopedFile: MultiScopedFile = multiScopedFile as MultiScopedFile;
@@ -497,7 +497,7 @@ export class TranslationService {
           translationStoreService,
           translationHttpService,
           resolvedScopes,
-          additionalHeaders
+          httpOptions
         ).pipe(map((scopedFile: ScopedFile): string => {
           translationStoreService.setScopedFile(
             resolvedScopes,
@@ -517,7 +517,7 @@ export class TranslationService {
           translationStoreService,
           translationHttpService,
           resolvedScopes,
-          additionalHeaders
+          httpOptions
         ).pipe(
           tap((multiScopedFile: MultiScopedFile): void => {
             const parsedMultiScopedFile: ParsedMultiScopedFiles = parseMultiScopedFile(multiScopedFile);

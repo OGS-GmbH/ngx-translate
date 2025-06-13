@@ -12,7 +12,6 @@ export const parseMultiScopedFile = (multiScopedFile: MultiScopedFile): ParsedMu
   const globalScopedFile: Record<string, string> = {};
 
   Object.keys(multiScopedFile).forEach((key: string): void => {
-    /* eslint-disable-next-line @security/detect-object-injection */
     const currentItem: ScopedFile | undefined = multiScopedFile[ key ];
 
     if (!(currentItem !== undefined && !Array.isArray(currentItem)))
@@ -25,7 +24,6 @@ export const parseMultiScopedFile = (multiScopedFile: MultiScopedFile): ParsedMu
       });
     }
 
-    /* eslint-disable-next-line @security/detect-object-injection */
     globalScopedFile[ key ] = currentItem;
   });
   splittedMultiScopedFile.push({
@@ -40,7 +38,6 @@ export const splitMultiScopedFile = (multiScopedFile: MultiScopedFile): ScopedFi
   const globalScopedFile: Record<string, string> = {};
 
   Object.keys(multiScopedFile).forEach((key: string): void => {
-    /* eslint-disable-next-line @security/detect-object-injection */
     const currentItem: Readonly<Record<string, string>> | undefined = multiScopedFile[ key ];
 
     if (!(currentItem !== undefined && !Array.isArray(currentItem)))
@@ -49,7 +46,6 @@ export const splitMultiScopedFile = (multiScopedFile: MultiScopedFile): ScopedFi
     if (typeof currentItem === "object")
       return void scopedFile.push(currentItem);
 
-    /* eslint-disable-next-line @security/detect-object-injection */
     globalScopedFile[ key ] = currentItem;
   });
   scopedFile.push(globalScopedFile);
@@ -69,13 +65,11 @@ export const findScopeInMultiScopedFile = (multiScopedFile: MultiScopedFile, sco
     const newScopedFile: Record<string, string> = {};
 
     Object.keys(multiScopedFile).forEach((key: string): void => {
-      /* eslint-disable-next-line @security/detect-object-injection */
       const currentItem: Readonly<Record<string, string>> | undefined = multiScopedFile[ key ];
 
       if (!(currentItem !== undefined && typeof currentItem !== "object" && !Array.isArray(currentItem)))
         return;
 
-      /* eslint-disable-next-line @security/detect-object-injection */
       newScopedFile[ key ] = currentItem;
     });
 
@@ -83,7 +77,6 @@ export const findScopeInMultiScopedFile = (multiScopedFile: MultiScopedFile, sco
   }
 
   // Get the specific scoped file
-  /* eslint-disable-next-line @security/detect-object-injection */
   const scopedFile: ScopedFile | undefined = multiScopedFile[ scopeName ];
 
   if (scopedFile === undefined) throw new ScopeNotDefinedError(false, scopeName);
