@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/OGS-GmbH/ngx-translate/compare/v1.0.0...v1.0.1) (2025-06-13)
+
+
+### Bug Fixes
+
+* package metadata ([267c333](https://github.com/OGS-GmbH/ngx-translate/commit/267c33317eabc508c975939a7b2dd1e108cd57a3))
+
 ## 1.0.0 (2025-06-13)
 
 

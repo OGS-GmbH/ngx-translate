@@ -1,6 +1,6 @@
 {
 	"name": "@ogs-gmbh/ngx-translate",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A lightweight, REST-based Angular i18n library designed for seamless internationalization with minimal setup. It supports dynamic language switching & flexible translation management via RESTful APIs.",
 	"keywords": [
 		"i18n",
@@ -11,16 +11,16 @@
 		"angular-package"
 	],
 	"homepage": "https://github.com/OGS-GmbH/ngx-translate?tab=readme-ov-file",
-  "bugs": "https://github.com/OGS-GmbH/ngx-translate/issues",
+	"bugs": "https://github.com/OGS-GmbH/ngx-translate/issues",
 	"license": "MIT",
 	"author": "OGS GmbH",
-  "contributors": [
-    {
-      "name": "Simon Kovtyk",
-      "email": "simon@kovtyk.com",
-      "url": "https://simonkov.dev"
-    }
-  ],
+	"contributors": [
+		{
+			"name": "Simon Kovtyk",
+			"email": "simon@kovtyk.com",
+			"url": "https://simonkov.dev"
+		}
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/OGS-GmbH/ngx-translate"
