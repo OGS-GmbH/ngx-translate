@@ -1,1 +1,2 @@
-pnpm run lint:commit -- $1
+commitlint --edit $1
+
