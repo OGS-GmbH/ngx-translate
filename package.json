@@ -1,11 +1,11 @@
 {
-	"name": "@ogs/ngx-translate",
+	"name": "@ogs-gmbh/ngx-translate",
 	"version": "0.0.0",
-	"homepage": "http://ogs-hq-git.ogs.local/standard/shared/npm/ngx-m3-translate",
+  "homepage": "https://github.com/OGS-GmbH/ngx-http?tab=readme-ov-file",
 	"author": "OGS GmbH",
 	"repository": {
 		"type": "git",
-		"url": "git+http://ogs-hq-git.ogs.local/standard/shared/npm/ngx-translate.git"
+		"url": "https://github.com/OGS-GmbH/ngx-translate"
 	},
 	"scripts": {
     "ci:build:main:production": "ng build --configuration production",
