@@ -1,16 +1,16 @@
 {
 	"name": "@ogs-gmbh/ngx-translate",
 	"version": "0.0.0",
-  "homepage": "https://github.com/OGS-GmbH/ngx-http?tab=readme-ov-file",
+  "homepage": "https://github.com/OGS-GmbH/ngx-translate?tab=readme-ov-file",
 	"author": "OGS GmbH",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/OGS-GmbH/ngx-translate"
 	},
 	"scripts": {
-    "ci:build:main:production": "ng build --configuration production",
-    "ci:pr:lint:main:eslint": "eslint .",
-    "ci:pr:commitlint:main:commitlint": "commitlint"
+		"ci:build:main:production": "ng build --configuration production",
+		"ci:pr:lint:main:eslint": "eslint .",
+		"ci:pr:commitlint:main:commitlint": "commitlint"
 	},
 	"devDependencies": {
 		"@angular-devkit/build-angular": "^18.2.12",
@@ -37,13 +37,13 @@
 		"typescript": "~5.5.4",
 		"typescript-eslint": "^8.18.0"
 	},
-  "peerDependencies": {
+	"peerDependencies": {
 		"@angular/common": "^18.2.1",
 		"@angular/core": "^18.2.1",
 		"@ogs-gmbh/ngx-http": "^1",
 		"rxjs": "~7.8.1"
 	},
-  "sideEffects": false,
+	"sideEffects": false,
 	"publishConfig": {
 		"directory": "dist/prod"
 	}
