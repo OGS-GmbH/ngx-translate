@@ -63,9 +63,6 @@ importers:
       eslint:
         specifier: ^9.16.0
         version: 9.24.0(jiti@2.4.2)
-      eslint-plugin-security:
-        specifier: ^3.0.1
-        version: 3.0.1
       eslint-plugin-unicorn:
         specifier: ^56.0.1
         version: 56.0.1(eslint@9.24.0(jiti@2.4.2))
@@ -8673,6 +8670,7 @@ snapshots:
   eslint-plugin-security@3.0.1:
     dependencies:
       safe-regex: 2.1.1
+    optional: true
 
   eslint-plugin-unicorn@56.0.1(eslint@9.24.0(jiti@2.4.2)):
     dependencies:
@@ -10726,6 +10724,7 @@ snapshots:
   safe-regex@2.1.1:
     dependencies:
       regexp-tree: 0.1.27
+    optional: true
 
   safer-buffer@2.1.2: {}
 
