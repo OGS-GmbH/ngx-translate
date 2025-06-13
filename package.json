@@ -8,7 +8,9 @@
 		"url": "git+http://ogs-hq-git.ogs.local/standard/shared/npm/ngx-translate.git"
 	},
 	"scripts": {
-    "ci:build:prod": "ng build --configuration production"
+    "ci:build:main:production": "ng build --configuration production",
+    "ci:pr:lint:main:eslint": "eslint .",
+    "ci:pr:commitlint:main:commitlint": "commitlint"
 	},
 	"devDependencies": {
 		"@angular-devkit/build-angular": "^18.2.12",
