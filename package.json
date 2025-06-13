@@ -1,7 +1,7 @@
 {
 	"name": "@ogs-gmbh/ngx-translate",
-	"version": "0.0.0",
-  "homepage": "https://github.com/OGS-GmbH/ngx-translate?tab=readme-ov-file",
+	"version": "1.0.0",
+	"homepage": "https://github.com/OGS-GmbH/ngx-translate?tab=readme-ov-file",
 	"author": "OGS GmbH",
 	"repository": {
 		"type": "git",
