@@ -1,8 +1,8 @@
 # i18n Translation Library
 
-![GitHub License](https://img.shields.io/github/license/OGS-GmbH/ngx-translate)
-![NPM Version](https://img.shields.io/npm/v/%40ogs-gmbh%2Fngx-translate)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/OGS-GmbH/ngx-translate/main-deploy.yml)
+![GitHub License](https://img.shields.io/github/license/OGS-GmbH/ngx-translate?color=0f434e)
+![NPM Version](https://img.shields.io/npm/v/%40ogs-gmbh%2Fngx-translate?color=0f434e)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/OGS-GmbH/ngx-translate/main-deploy.yml?color=0f434e)
 
 This Angular i18n library offers a REST-based approach to internationalization, with support for chunked and token-based translation loading.
 
@@ -33,7 +33,7 @@ pnpm install @ogs-gmbh/ngx-translate
 </details>
 
 ## License
-The MIT License (MIT) - Please have a look at the [LICENSE file](https://github.com/OGS-GmbH/ngx-translate/blob/main/LICENSE) for more details.
+The MIT License (MIT) - Please have a look at the [LICENSE file](./LICENSE) for more details.
 
 ## Contributing
 Contributions are always welcome and greatly appreciated. Whether you want to report a bug, suggest a new feature, or improve the documentation, your input helps make the project better for everyone.
