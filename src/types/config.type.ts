@@ -27,7 +27,7 @@ export type SpecificTranslateConfig = {
 export type TranslateConfig = {
   readonly http: {
     config: HttpConfig;
-    options: HttpOptions<never, HttpHeadersOption, never>;
+    options?: HttpOptions<never, HttpHeadersOption, never>;
   };
   readonly translate: SpecificTranslateConfig;
 };

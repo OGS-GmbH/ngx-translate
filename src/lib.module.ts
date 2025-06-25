@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from "@angular/core";
+import { ModuleWithProviders, NgModule, Provider } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TranslateConfig } from "./types/config.type";
 import { TranslationHttpSerivce } from "./services/translation-http.serivce";
@@ -27,13 +27,20 @@ import { provideTranslationInterceptor } from "./providers/interceptor.provider"
 /* eslint-disable-next-line @tseslint/no-extraneous-class */
 export class TranslationModule {
   public static forRoot (translateConfig: Readonly<TranslateConfig>): ModuleWithProviders<TranslationModule> {
+    const providers: Provider[] = [
+      provideTranslationConfig(translateConfig.translate),
+      provideTranslationHttpConfig(translateConfig.http.config)
+    ];
+
+    if (translateConfig.http.options !== undefined) {
+      providers.push(
+        provideTranslationHttpOptions(translateConfig.http.options)
+      );
+    }
+
     return {
       ngModule: TranslationModule,
-      providers: [
-        provideTranslationConfig(translateConfig.translate),
-        provideTranslationHttpConfig(translateConfig.http.config),
-        provideTranslationHttpOptions(translateConfig.http.options)
-      ]
+      providers
     };
   }
 }

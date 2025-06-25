@@ -14,7 +14,7 @@ export class TranslationHttpSerivce {
 
   private readonly _translationConfig: SpecificTranslateConfig | null = inject(TRANSLATION_CONFIG_TOKEN, { optional: true });
 
-  private readonly _translationHttpOptions: HttpOptions<never, HttpHeadersOption, never> = inject(TRANSLATION_HTTP_OPTIONS);
+  private readonly _translationHttpOptions: HttpOptions<never, HttpHeadersOption, never> | null = inject(TRANSLATION_HTTP_OPTIONS, { optional: true });
 
   public getWithRef$<T>(httpClientRef: Readonly<HttpClient>, scopeName: ReadonlyArray<string | null> | string | null, httpOptions?: HttpOptions<never, HttpHeadersOption, never>): Observable<T> {
     let path: string = this._translationHttpConfig;
@@ -35,7 +35,7 @@ export class TranslationHttpSerivce {
 
     let headers: HttpHeaders = new HttpHeaders();
 
-    if (this._translationHttpOptions.headers !== undefined)
+    if (this._translationHttpOptions?.headers !== undefined)
       headers = mergeHttpHeaders(headers, this._translationHttpOptions.headers);
 
     if (httpOptions?.headers !== undefined)
