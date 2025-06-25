@@ -15,6 +15,7 @@ jobs:
     secrets:
       GH_DEPLOY_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
       NPM_ORG_OGS_GMBH_CI: ${{ secrets.NPM_ORG_OGS_GMBH_CI }}
+      FONTAWESOME_REGISTRY_AUTH_TOKEN: ${{ secrets.FONTAWESOME_REGISTRY_AUTH_TOKEN }}
     with:
       release_please_config_file: ".release-please/main-config.json"
       release_please_manifest_file: ".release-please/main-manifest.json"
