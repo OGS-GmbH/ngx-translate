@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/OGS-GmbH/ngx-translate/compare/v1.0.1...v1.1.0) (2025-06-25)
+
+
+### Features
+
+* **config:** optional http options ([#5](https://github.com/OGS-GmbH/ngx-translate/issues/5)) ([722a1b7](https://github.com/OGS-GmbH/ngx-translate/commit/722a1b7f551812def0d6ed506c397c0cf29bda0f))
+
 ## [1.0.1](https://github.com/OGS-GmbH/ngx-translate/compare/v1.0.0...v1.0.1) (2025-06-13)
 
 
