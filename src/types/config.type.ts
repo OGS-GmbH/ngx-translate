@@ -10,6 +10,7 @@ export type SpecificTranslateConfig = {
   readonly locales: LocaleConfig[];
   readonly timeout?: number | undefined;
   readonly defaultScope?: string | undefined;
+  readonly fallbackToSourceLocale?: boolean | undefined;
   readonly storageConfig?: {
     readonly collectingStrategy?: CollectingStrategies | undefined;
     readonly locale?: {
