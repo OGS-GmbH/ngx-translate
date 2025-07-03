@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform, inject } from "@angular/core";
 import { SpecificTranslateConfig, TRANSLATION_CONFIG_TOKEN } from "../public-api";
-import { Subscription, filter } from "rxjs";
+import { EMPTY, Observable, Subscription, catchError, filter } from "rxjs";
 import { TRANSLATION_SCOPE_TOKEN } from "../tokens/scope.token";
 import { TranslationService } from "../services/translation.service";
 import { resolveScope } from "../utils/translate.util";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Pipe({
   name: "translate",
@@ -24,12 +25,22 @@ export class TranslationPipe implements PipeTransform, OnDestroy {
 
   private readonly _translationConfig: SpecificTranslateConfig | null = inject(TRANSLATION_CONFIG_TOKEN, { optional: true });
 
-  public transform (value: string, token: string, scope?: Readonly<Array<string | null> | string | null>): string | null {
+  public transform (value: string, token: string, scope?: Readonly<Array<string | null> | string | null>, fallback?: boolean): string | null {
     if (this._translationServiceSubscription !== null)
       return this._lastValue;
 
     this._translationServiceSubscription = this._translationService.translateTokenByLocale$(token, value, this._resolveScope(scope))
-      .pipe(filter((translation: string): boolean => translation !== this._lastValue))
+      .pipe(
+        catchError((_httpErrorResponse: HttpErrorResponse, _: Observable<string>): Observable<string> => {
+          const fallbackToSourceLocale: boolean | undefined = fallback ?? this._translationConfig?.fallbackToSourceLocale;
+
+          if (fallbackToSourceLocale)
+            this._updateLastValue(value);
+
+          return EMPTY;
+        }),
+        filter((translation: string): boolean => translation !== this._lastValue)
+      )
       .subscribe({
         next: (translation: string): void => {
           this._hasTranslationChanged = translation !== this._lastValue;
