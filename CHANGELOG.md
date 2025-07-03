@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/OGS-GmbH/ngx-translate/compare/v1.1.0...v1.2.0) (2025-07-03)
+
+
+### Features
+
+* **pipe:** fallback to source locale ([#8](https://github.com/OGS-GmbH/ngx-translate/issues/8)) ([562129c](https://github.com/OGS-GmbH/ngx-translate/commit/562129c8ce6c37c470d68ff78acb768b7d752d25))
+
 ## [1.1.0](https://github.com/OGS-GmbH/ngx-translate/compare/v1.0.1...v1.1.0) (2025-06-25)
 
 
