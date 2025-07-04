@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/OGS-GmbH/ngx-translate/compare/v1.2.0...v1.3.0) (2025-07-04)
+
+
+### Features
+
+* **pipe:** fallback by no emit in favor of ngx-template-engine ([0d11c2a](https://github.com/OGS-GmbH/ngx-translate/commit/0d11c2a76d6ade6b8134c4231137f149056d21ee))
+
 ## [1.2.0](https://github.com/OGS-GmbH/ngx-translate/compare/v1.1.0...v1.2.0) (2025-07-03)
 
 
