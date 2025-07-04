@@ -25,9 +25,9 @@ export class TranslationPipe implements PipeTransform, OnDestroy {
 
   private readonly _translationConfig: SpecificTranslateConfig | null = inject(TRANSLATION_CONFIG_TOKEN, { optional: true });
 
-  public transform (value: string, token: string, scope?: Readonly<Array<string | null> | string | null>, fallback?: boolean): string | null {
+  public transform (value: string, token: string, scope?: Readonly<Array<string | null> | string | null>, fallback?: boolean): string {
     if (this._translationServiceSubscription !== null)
-      return this._lastValue;
+      return this._lastValue ?? value;
 
     this._translationServiceSubscription = this._translationService.translateTokenByLocale$(token, value, this._resolveScope(scope))
       .pipe(
@@ -48,7 +48,7 @@ export class TranslationPipe implements PipeTransform, OnDestroy {
         }
       });
 
-    return this._lastValue;
+    return this._lastValue ?? value;
   }
 
   public ngOnDestroy (): void {
