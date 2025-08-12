@@ -8,7 +8,8 @@ import { HttpErrorResponse } from "@angular/common/http";
 
 @Pipe({
   name: "translate",
-  pure: false
+  pure: false,
+  standalone: false
 })
 export class TranslationPipe implements PipeTransform, OnDestroy {
   private _translationServiceSubscription: Subscription | null = null;
