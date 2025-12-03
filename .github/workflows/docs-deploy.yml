@@ -1,0 +1,16 @@
+name: Docs Deploy
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+  pages: write
+
+jobs:
+  call-npm-package-docs:
+    uses: OGS-GmbH/reusable-github-actions/.github/workflows/npm-package-docs.yml@main
+    secrets:
+      GH_DEPLOY_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
+      FONTAWESOME_REGISTRY_AUTH_TOKEN: ${{ secrets.FONTAWESOME_REGISTRY_AUTH_TOKEN }}
