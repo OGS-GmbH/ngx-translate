@@ -16,7 +16,7 @@ Scope resolution is done by specificity. A good example would be [CSS specificit
 
 Each scope is provided as an `InjectionToken`. We use `InjectionToken`s, because we can represent specificity trough Angular's `Dependency Injection`.
 
-> In general, we can define a rule for it:
+> In general, we can define a rule for it:\
 > **The nearest, to the translation provided, scope is the most important and will be prioritized over others**
 
 To visualize the resolution, we provide you the following diagram. Keep in mind, that trough Angular's Dependency Injection, providers can be overriden at any possible `Injector`-level in their Injector hierarchy, so be careful to not provide scopes at too many levels. Otherwise debugging scopes may take a while.

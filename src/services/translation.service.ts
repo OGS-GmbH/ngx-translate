@@ -1,6 +1,6 @@
 import { HttpRequestStatus, HttpOptions, HttpHeadersOption } from "@ogs-gmbh/ngx-http";
 import { BehaviorSubject, EMPTY, Observable, Subject, catchError, combineLatestWith, distinctUntilChanged, filter, map, of, switchMap, tap } from "rxjs";
-import { Injectable, SkipSelf, inject } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { LocaleConfig, SpecificTranslateConfig } from "../types/config.type";
 import { MultiScopedFile, NotifierScope, ParsedMultiScopedFile, ParsedMultiScopedFiles, ScopedFile } from "../types/store.type";
 import { findScopeInMultiScopedFile, findTokenInScopedFiles, parseMultiScopedFile, splitMultiScopedFile } from "../utils/file.util";
@@ -15,8 +15,7 @@ import { TranslationStoreService } from "./translation-store.service";
   providedIn: "root"
 })
 export class TranslationService {
-  @SkipSelf()
-  private readonly _httpClient: HttpClient = inject(HttpClient);
+  private readonly _httpClient: HttpClient = inject(HttpClient, { host: true });
 
   private readonly _translationConfig: SpecificTranslateConfig = inject(TRANSLATION_CONFIG_TOKEN);
 
@@ -29,8 +28,11 @@ export class TranslationService {
   private readonly _isHttpLoading$: Observable<HttpRequestStatus | null> = this._isHttpLoading.asObservable();
 
   /**
-   * Getter for getting an Observable, that will emit only when a HTTP-Request is made
-   * @returns {Observable<HttpRequestStatus | null>} - An observable with the HttpRequestStatus if HTTP is currently under use. Otherwise an observable with null inside.
+   * An Observable, that will emit only when a HTTP-Request is made
+   * @returns An observable with the HttpRequestStatus if HTTP is currently under use. Otherwise an observable with null inside.
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
    */
   public isHttpLoading$ (): Observable<HttpRequestStatus | null> {
     return this._isHttpLoading$.pipe(
@@ -40,14 +42,17 @@ export class TranslationService {
   }
 
   /**
-   * Preload multiple translations with references to the required services
-   * @param {HttpClient} httpClient - The HttpClient, that'll be used
-   * @param {TranslationStoreService} translationStoreService - The TranslationStoreService, that'll be used
-   * @param {TranslationHttpSerivce} translationHttpService - The TranslationHttpService, that'll be used
-   * @param {string} _locale - The locale, that should be preloaded
-   * @param {string | null} scopeName - The scope name for the lookup of the translation
-   * @param {HttpOptions | undefined} httpOptions - Additional HTTP Options for the request
-   * @returns {Observable<void>} - An observable to handle the status
+   * Preload multiple translations with references to different various
+   * @param httpClient - The HttpClient, that'll be used
+   * @param translationStoreService - The TranslationStoreService, that'll be used
+   * @param translationHttpService - The TranslationHttpService, that'll be used
+   * @param _locale - The locale, that should be preloaded
+   * @param scopeName - The scope name for the lookup of the translation
+   * @param httpOptions - Additional HTTP Options for the request
+   * @returns An observable to handle the status
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
    */
   /* eslint-disable-next-line @tseslint/class-methods-use-this, @tseslint/max-params */
   public _preloadWithRef$ (
@@ -117,12 +122,17 @@ export class TranslationService {
 
   /**
    * Translates a token by the locale reactive\
+   * @param token - The token to resolve the translation
+   * @param scopeName - A scope name to resolve the lookup
+   * @param value - The default value of the translation
+   * @param httpOptions - Additional HTTP Options for the request
+   * @returns An observable with the current translation as string
+   *
+   * @remarks
    * If the locale changes, a new translation based on the new locale will be emitted.
-   * @param {string} token - The token to resolve the translation
-   * @param {string | undefined} scopeName - A scope name to resolve the lookup
-   * @param {string | undefined} value - The default value of the translation
-   * @param {HttpOptions | undefined} httpOptions - Additional HTTP Options for the request
-   * @returns {Observable<string>} - An observable with the current translation as string
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
    */
   public translateTokenByLocale$ (
     token: string,
@@ -144,12 +154,17 @@ export class TranslationService {
 
   /**
    * Translates a token by the current locale\
+   * @param token - The token to resolve the translation
+   * @param scopeName - A scope name to resolve the lookup
+   * @param value - The default value of the translation
+   * @param httpOptions - Additional HTTP Options for the request
+   * @returns An observable with the current translation as string
+   *
+   * @remarks
    * If the locale changes, no new translation will be emitted.
-   * @param {string} token - The token to resolve the translation
-   * @param {string | undefined} scopeName - A scope name to resolve the lookup
-   * @param {string | undefined} value - The default value of the translation
-   * @param {HttpOptions | undefined} httpOptions - Additional HTTP Options for the request
-   * @returns {Observable<string>} - An observable with the current translation as string
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
    */
   public translateTokenByCurrentLocale$ (
     token: string,
@@ -172,7 +187,19 @@ export class TranslationService {
   }
 
   /**
-   * Preload translations by locale reactive.
+   * Preload translations by locale
+   * @param httpClient - The HttpClient, that'll be used
+   * @param translationStoreService - The TranslationStoreService, that'll be used
+   * @param translationHttpService - The TranslationHttpService, that'll be used
+   * @param scopeName - The scope name for the lookup of the translation
+   * @param httpOptions - Additional HTTP Options for the request
+   * @returns An observable to handle the status
+   *
+   * @remarks
+   * If the locale changes, the scope will be preloaded again.
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
    */
   /* eslint-disable-next-line @tseslint/max-params */
   public preloadByLocale (
@@ -193,7 +220,19 @@ export class TranslationService {
   }
 
   /**
-   * Preload translations by current locale.
+   * Preload translations by locale
+   * @param httpClient - The HttpClient, that'll be used
+   * @param translationStoreService - The TranslationStoreService, that'll be used
+   * @param translationHttpService - The TranslationHttpService, that'll be used
+   * @param scopeName - The scope name for the lookup of the translation
+   * @param httpOptions - Additional HTTP Options for the request
+   * @returns An observable to handle the status
+   *
+   * @remarks
+   * If the locale changes, no new preloading will be made.
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
    */
   /* eslint-disable-next-line @tseslint/max-params */
   public preloadByCurrentLocale (
@@ -215,21 +254,10 @@ export class TranslationService {
     );
   }
 
-  /**
-   * Resolve scope(s) hierarchically
-   * @param {Array<string | null> | string | null | undefined} scopeName - Scope name(s), that should be resolved
-   * @returns {Array<string | null> | string | null} - based on type
-   */
   private _resolveScope<T extends ReadonlyArray<string | null> | string | null>(scopeName?: T): T {
     return resolveScope(this._translationConfig, scopeName);
   }
 
-  /**
-   * Translate token by source locale
-   * @param {string | undefined} value - The value, that should be translated
-   * @param {string} token - The token, that is defined for the value
-   * @returns {Observable<string>} - An observable with the translation as value
-   */
   /* eslint-disable-next-line @tseslint/class-methods-use-this */
   private _translateBySourceLocale (token: string, value?: string): Observable<string> {
     if (!value)
@@ -238,13 +266,6 @@ export class TranslationService {
     return of(value);
   }
 
-  /**
-   * Translate token by resolving it from the storage\
-   * The first matching translation will be used if scope is provided here as an Array.
-   * @param {string | null} scope - The scope, that will be looked up
-   * @param {string} token - The token, that is defined for the value
-   * @returns {Observable<string>} - An observable with the translation as value
-   */
   private _translateByStore (scope: ReadonlyArray<string | null> | string | null, token: string): Observable<string> {
     if (typeof scope === "string" || scope === null) {
       /* eslint-disable-next-line @tseslint/no-non-null-assertion */
@@ -276,12 +297,6 @@ export class TranslationService {
     return of(translatedToken);
   }
 
-  /**
-   * Get scoped file by notifier\
-   * The resolved scoped got requested by HTTP
-   * @param {string|null} scope - The scope to identify the notifier by. string is an explicit scope and null is the global scope
-   * @returns {Observable<ScopedFile>} - An observable as the new notifier.
-   */
   private _getScopedFileByNotifier (scope: string | null): Observable<ScopedFile> {
     const currentNotifier: Subject<ScopedFile> = new Subject<ScopedFile>();
 
@@ -290,12 +305,6 @@ export class TranslationService {
     return currentNotifier.asObservable();
   }
 
-  /**
-   * Get scoped file by adding a notifier\
-   * The resolved scope should be requested by HTTP
-   * @param {string | null} scope - The scope to identify the notifier by. string is an explicit scope and null is the global socpe.
-   * @returns {Observable<ScopedFile>} - An observable as the new notifier.
-   */
   private _getScopedFileByAddingNotifier (scope: string | null): Observable<ScopedFile> {
     const currentNotifier: Subject<ScopedFile> = new Subject<ScopedFile>();
 
@@ -307,15 +316,6 @@ export class TranslationService {
     return currentNotifier;
   }
 
-  /**
-   * Get a (multi-)scoped file by HTTP
-   * @param {HttpClient} httpClient - The HttpClient, that'll be used
-   * @param {TranslationStoreService} translationStoreService - The TranslationStoreService, that'll be used
-   * @param {TranslationHttpSerivce} translationHttpService - The TranslationHttpService, that'll be used
-   * @param {Array<string | null>} scope - The scope as Array, where string is an explicit scope and null is the global scope
-   * @param {HttpOptions | undefined} httpOptions - Additional HTTP Options for the request
-   * @returns {Observable} - An observable with the (multi-)scoped file inside
-   */
   /* eslint-disable-next-line @tseslint/max-params */
   private _getScopedFileByHttpWithRef$<T extends ReadonlyArray<string | null> | string | null>(
     httpClient: Readonly<HttpClient>,
@@ -384,29 +384,6 @@ export class TranslationService {
     );
   }
 
-  /**
-   * Translate one token by a scope
-   * @param {HttpClient} httpClient - The HttpClient, that'll be used
-   * @param {TranslationStoreService} translationStoreService - The TranslationStoreService, that'll be used
-   * @param {TranslationHttpSerivce} translationHttpService - The TranslationHttpService, that'll be used
-   * @param {string} locale - The locale for resolving the translation
-   * @param {string} scopeName - The scope name for resolving the translation
-   * @param {string} token - The token for resolving the translation
-   * @param {string | undefined} value - The default value for the token
-   * @param {HttpOptions | undefined} httpOptions - Additional HTTP Options for the request
-   * @returns {Observable<string>} - An observable with the translation as string inside
-   *
-   * Resolving steps:
-   * 1. Check if it should not be translated
-   * => If the current locale is the source locale
-   * 2. Check if it can be translated by store
-   * => If translation is stored in store
-   * 3. Resolve translations by notifiers
-   * => Exisiting scopes are resolved automatically
-   * => Extinct scopes are resolved by HTTP
-   * 4. Resolve by HTTP
-   * => Every scope gets resolved by HTTP
-   */
   /* eslint-disable-next-line @tseslint/max-params */
   private _translateWithRef$ (
     httpClient: Readonly<HttpClient>,
