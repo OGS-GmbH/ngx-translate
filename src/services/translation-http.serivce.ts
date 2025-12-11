@@ -16,7 +16,22 @@ export class TranslationHttpSerivce {
 
   private readonly _translationHttpOptions: HttpOptions<never, HttpHeadersOption, never> | null = inject(TRANSLATION_HTTP_OPTIONS, { optional: true });
 
-  public getWithRef$<T>(httpClientRef: Readonly<HttpClient>, scopeName: ReadonlyArray<string | null> | string | null, httpOptions?: HttpOptions<never, HttpHeadersOption, never>): Observable<T> {
+  /**
+   * Gets translations with the provided HttpClient reference.
+   *
+   * @param httpClientRef - The HttpClient reference to use for the request.
+   * @param scopeName - The scope name(s) for the translations.
+   * @param httpOptions - Optional HTTP options to customize the request.
+   * @returns An Observable of the requested translations.
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
+  public getWithRef$<T>(
+    httpClientRef: Readonly<HttpClient>,
+    scopeName: ReadonlyArray<string | null> | string | null,
+    httpOptions?: HttpOptions<never, HttpHeadersOption, never>
+  ): Observable<T> {
     let path: string = this._translationHttpConfig;
 
     if (typeof scopeName === "string" || scopeName === null) {

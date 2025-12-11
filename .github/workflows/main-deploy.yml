@@ -4,10 +4,12 @@ on:
     branches:
       - "main"
   workflow_dispatch:
+
 permissions:
   id-token: write
   contents: write
   pull-requests: write
+  pages: write
 
 jobs:
   call-npm-package-deploy:
@@ -15,7 +17,7 @@ jobs:
     secrets:
       GH_DEPLOY_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
       NPM_ORG_OGS_GMBH_CI: ${{ secrets.NPM_ORG_OGS_GMBH_CI }}
-      FONTAWESOME_REGISTRY_AUTH_TOKEN: ${{ secrets.FONTAWESOME_REGISTRY_AUTH_TOKEN }}
+      MS_TEAMS_URL: ${{ secrets.MS_TEAMS_URL }}
     with:
       release_please_config_file: ".release-please/main-config.json"
       release_please_manifest_file: ".release-please/main-manifest.json"

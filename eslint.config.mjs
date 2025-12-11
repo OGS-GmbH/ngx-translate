@@ -34,7 +34,8 @@ export default tseslint.config(
       "node_modules",
       "dist",
       "CHANGELOG.md",
-      "README.md"
+      "README.md",
+      ".vitepress/.vitepress/cache"
     ]
   },
   {
@@ -43,7 +44,12 @@ export default tseslint.config(
       parser: tseslint.parser,
       globals: globals.browser,
       parserOptions: {
-        projectService: true,
+        projectService: {
+          allowDefaultProject: [
+            ".vitepress/.vitepress/*",
+            ".vitepress/.vitepress/theme/*"
+          ]
+        },
         tsconfigRootDir: import.meta.dirname
       }
     },
@@ -55,6 +61,10 @@ export default tseslint.config(
   },
   {
     files: [ "**/*.md" ],
+    language: "@markdown/commonmark",
+    languageOptions: {
+      frontmatter: "yaml"
+    },
     rules: ESLINT_MARKDOWN_RULES
   },
   {

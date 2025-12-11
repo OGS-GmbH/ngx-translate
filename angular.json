@@ -12,33 +12,18 @@
 				"build": {
 					"builder": "@angular-devkit/build-angular:ng-packagr",
 					"configurations": {
-						"production": {
-							"project": "./ng-package.prod.json",
-							"tsConfig": "./tsconfig.prod.json"
-						},
-						"development": {
-							"watch": true,
-							"project": "./ng-package.dev.json",
-							"tsConfig": "./tsconfig.dev.json"
+						"default": {
+							"project": "./ng-package.json",
+							"tsConfig": "./tsconfig.json"
 						}
 					},
-					"defaultConfiguration": "development"
-				},
-				"test": {
-					"builder": "@angular-devkit/build-angular:karma",
-					"options": {
-						"tsConfig": "./tsconfig.spec.json",
-						"polyfills": [
-							"zone.js",
-							"zone.js/testing"
-						]
-					}
+					"defaultConfiguration": "default"
 				}
 			}
 		}
 	},
 	"cli": {
-		"packageManager": "npm",
+		"packageManager": "pnpm",
 		"warnings": {
 			"versionMismatch": true
 		},

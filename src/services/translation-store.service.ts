@@ -21,9 +21,6 @@ type StorageAttributes = {
 
 type StoreTranslations = LoadedScopes | LocaleLoadedScopes;
 
-/*
- * A scope name of null is the default scope, otherwise, it is the identifier for a translation file.
- */
 @Injectable({
   providedIn: "root"
 })
@@ -78,14 +75,38 @@ export class TranslationStoreService {
     this._locale$ = this._locale.asObservable();
   }
 
+  /**
+   * Get the current locale
+   *
+   * @returns The current locale
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public getCurrentLocale (): LocaleConfig {
     return this._locale.value;
   }
 
+  /**
+   * Get an observable of the current locale
+   *
+   * @returns An observable of the current locale
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public getLocale$ (): Observable<LocaleConfig> {
     return this._locale$.pipe(distinctUntilChanged());
   }
 
+  /**
+   * Set the current locale
+   *
+   * @param locale - The locale to set
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public setLocale (locale: LocaleConfig): void {
     if (!this._checkIfLocaleExists(locale))
       throw new LocaleNotDefinedError(locale);
@@ -101,10 +122,27 @@ export class TranslationStoreService {
     this._locale.next(locale);
   }
 
+  /**
+   * Get all defined locales
+   *
+   * @returns An array of all defined locales
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public getLocales (): LocaleConfig[] {
     return this._translationConfig.locales;
   }
 
+  /**
+   * Set a scoped file
+   *
+   * @param scopeName - The name of the scope
+   * @param file - The scoped file to set
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public setScopedFile (scopeName: string | null, file: ScopedFile): void {
     const existingScope: LoadedScope | undefined = scopeName ? this._getScopeByScopeName(scopeName) : undefined;
 
@@ -117,51 +155,141 @@ export class TranslationStoreService {
     if (this._translationConfig.storageConfig?.translations?.store) this._setStorageValue("translations", this._loadedScopes);
   }
 
+  /**
+   * Get a scoped file
+   *
+   * @param scopeName - The name of the scope, the ScopedFile belongs to
+   * @returns `ScopedFile` if found, otherwise `undefined`
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public getScopedFile (scopeName: string | null): ScopedFile | undefined {
     const existingScope: LoadedScope | undefined = this._getScopeByScopeName(scopeName);
 
     return existingScope ? existingScope.file : undefined;
   }
 
+  /**
+   * Check if a scoped file exists
+   *
+   * @param scopeName - The name of the scope, the ScopedFile belongs to
+   * @returns `true` if found, otherwise `false`
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public hasScopedFile (scopeName: string | null): boolean {
     const existingScope: LoadedScope | undefined = this._getScopeByScopeName(scopeName);
 
     return Boolean(existingScope);
   }
 
+  /**
+   * Check if scoped files exist
+   *
+   * @param scopeNames - An array of scope names, the ScopedFiles belong to
+   * @returns `true` if all could be found, otherwise `false`
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public hasScopedFiles (scopeNames: ReadonlyArray<string | null>): boolean {
     const existingScopes: LoadedScopes | undefined = this._getScopeByScopeNames(scopeNames);
 
     return Boolean(existingScopes);
   }
 
+  /**
+   * Check if a scope exists
+   *
+   * @param scopeName - The name of the scope
+   * @returns `true` if found, otherwise `false`
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public isScopeExisting (scopeName: string | null): boolean {
     const existingScope: LoadedScope | undefined = this._getScopeByScopeName(scopeName);
 
     return existingScope !== undefined;
   }
 
+  /**
+   * Check which scopes exist
+   *
+   * @param scopeNames - An array of scope names, that should be checked
+   * @returns An array of existing scope names
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public getExistingScopes (scopeNames: ReadonlyArray<string | null>): Array<string | null> {
     return scopeNames.filter((scopeName: string | null): boolean => this.isScopeExisting(scopeName));
   }
 
+  /**
+   * Check if scope name is in notifier scopes
+   *
+   * @param scopeName - The name of the scope
+   * @returns `true` if found, otherwise `false`
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public isScopeNameInNotifierScopes (scopeName: string | null): boolean {
     return Boolean(this._notifierScopes?.find((notifierScope: Readonly<NotifierScope>): boolean => notifierScope.scope === scopeName));
   }
 
+  /**
+   * Check if scope names are in notifier scopes
+   *
+   * @param scopeNames - An array of scope names, that should be checked
+   * @returns `true` if all are found, otherwise `false`
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public areScopeNamesInNotifierScopes (scopeNames: ReadonlyArray<string | null>): boolean {
     return scopeNames.map((scopeName: string | null): boolean => this.isScopeNameInNotifierScopes(scopeName))
       .reduce((previous: boolean, current: boolean): boolean => previous && current);
   }
 
+  /**
+   * Check which scope names are in notifier scopes
+   *
+   * @param scopeNames - An array of scope names, that should be checked
+   * @returns An array of existing scope names
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public getExistingNotifierScopes (scopeNames: ReadonlyArray<string | null>): Array<string | null> {
     return scopeNames.filter((scopeName: string | null): boolean => this.isScopeNameInNotifierScopes(scopeName));
   }
 
+  /**
+   * Get notifier scope by scope name
+   *
+   * @param scopeName - The name of the scope
+   * @returns `NotifierScope` if found, otherwise `undefined`
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public getNotiferScope (scopeName: string | null): NotifierScope | undefined {
     return this._notifierScopes?.find((notiferScope: NotifierScope): boolean => notiferScope.scope === scopeName);
   }
 
+  /**
+   * Get notifier scopes by scope names
+   *
+   * @param scopeNames - An array of scope names
+   * @returns `NotifierScopes` if found, otherwise `undefined`
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public getNotifierScopes (scopeNames: ReadonlyArray<string | null>): NotifierScopes | undefined {
     const filteredScopes: NotifierScopes | [] = scopeNames.map((scopeName: string | null): NotifierScope | undefined => this.getNotiferScope(scopeName))
       .filter((notifierScope: Readonly<NotifierScope> | undefined): boolean => notifierScope !== undefined) as NotifierScopes | [];
@@ -169,18 +297,43 @@ export class TranslationStoreService {
     return filteredScopes.length === 0 ? filteredScopes : undefined;
   }
 
+  /**
+   * Add a notifier scope
+   *
+   * @param notifierScope - The notifier scope to add
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public addNotifierScope (notifierScope: Readonly<NotifierScope>): void {
     this._notifierScopes === null
       ? this._notifierScopes = [ notifierScope ]
       : this._notifierScopes.push(notifierScope);
   }
 
+  /**
+   * Add multiple notifier scopes
+   *
+   * @param notifierScopes - The notifier scopes to add
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public addNotifierScopes (notifierScopes: NotifierScopes): void {
     this._notifierScopes === null
       ? this._notifierScopes = notifierScopes
       : this._notifierScopes.push(...notifierScopes);
   }
 
+  /**
+   * Add a notifier to a notifier scope
+   *
+   * @param scopeName - The name of the scope
+   * @param notifier - The notifier to add
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public addNotifierToNotifierScope (scopeName: string | null, notifier: Subject<ScopedFile>): void {
     this._notifierScopes = this._notifierScopes?.map((notifierScope: NotifierScope): NotifierScope => {
       if (notifierScope.scope !== scopeName) return notifierScope;
@@ -193,6 +346,14 @@ export class TranslationStoreService {
     }) ?? null;
   }
 
+  /**
+   * Remove a notifier scope
+   *
+   * @param scopeName - The name of the scope
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public removeNotifierScope (scopeName: string | null): void {
     if (this._notifierScopes === null)
       return;
@@ -200,6 +361,14 @@ export class TranslationStoreService {
     this._notifierScopes = this._notifierScopes.filter((notifierScope: Readonly<NotifierScope>): boolean => notifierScope.scope !== scopeName);
   }
 
+  /**
+   * Get the source locale
+   *
+   * @returns `LocaleConfig` if defined, otherwise `undefined`
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public getSourceLocale (): LocaleConfig | undefined {
     return this._translationConfig.locales.find((localeConfig: LocaleConfig) => localeConfig.isSource);
   }

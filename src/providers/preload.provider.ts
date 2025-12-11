@@ -30,6 +30,15 @@ const handleRuntimeStrategy = (
 };
 /* eslint-enable @tseslint/max-params */
 
+/**
+ * Provide translation preloading based on the specified strategy
+ *
+ * @param preloadProvider - The translation preload provider configuration
+ * @returns A FactoryProvider for translation preloading
+ *
+ * @since 1.0.0
+ * @author Simon Kovtyk
+ */
 export const provideTranslationPreload = (preloadProvider: Readonly<TranslationPreloadProvider>): FactoryProvider => {
   switch (preloadProvider.preloadingStrategy) {
     case PreloadingStrategies.INITIALIZATION: {
@@ -85,6 +94,15 @@ const handleReactiveRuntimeStrategy = (
 };
 /* eslint-enable @tseslint/max-params */
 
+/**
+ * Provide reactive translation preloading based on the specified strategy
+ *
+ * @param preloadProvider - The translation preload provider configuration
+ * @returns A FactoryProvider for reactive translation preloading
+ *
+ * @since 1.0.0
+ * @author Simon Kovtyk
+ */
 export const provideTranslationPreloadReactive = (preloadProvider: Readonly<TranslationPreloadProvider>): FactoryProvider => {
   switch (preloadProvider.preloadingStrategy) {
     case PreloadingStrategies.INITIALIZATION: {
