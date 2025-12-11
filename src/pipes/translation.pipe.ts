@@ -25,7 +25,24 @@ export class TranslationPipe implements PipeTransform, OnDestroy {
 
   private readonly _translationConfig: SpecificTranslateConfig | null = inject(TRANSLATION_CONFIG_TOKEN, { optional: true });
 
-  public transform (value: string, token: string, scope?: Readonly<Array<string | null> | string | null>, fallback?: boolean): string {
+  /**
+   * Transforms a token into its translated value
+   *
+   * @param value - The possible fallback value, if no translation was found. Check the `fallback` parameter
+   * @param token - The token to be translated
+   * @param scope - Optional scope(s) to narrow down the translation search
+   * @param fallback - Optional flag to determine if it should fallback to the source locale when no translation was found. If not provided, the `value` will be used.
+   * @returns The translated token or the fallback value
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
+  public transform (
+    value: string,
+    token: string,
+    scope?: Readonly<Array<string | null> | string | null>,
+    fallback?: boolean
+  ): string {
     if (this._translationServiceSubscription !== null)
       return this._lastValue ?? value;
 

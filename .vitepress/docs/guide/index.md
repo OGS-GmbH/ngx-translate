@@ -29,7 +29,7 @@ $ bun add -D @ogs-gmbh/ngx-translate
 
 ### Configuration
 
-The package should be configured trough an [InjectionToken](https://v18.angular.dev/api/core/InjectionToken). To do it, you can use the [NgModule](https://v18.angular.dev/api/core/NgModule), that exposes various required functionalities in your app.
+The package should be configured trough an [`InjectionToken`](https://v18.angular.dev/api/core/InjectionToken). To do it, you can use the [`NgModule`](https://v18.angular.dev/api/core/NgModule), that exposes various required functionalities in your app.
 
 #### 1. Configure
 
@@ -37,7 +37,7 @@ First, you need to define your config. You should place it into a global configu
 
 You'll find support for the http config in [ngx-http docs](https://ogs-gmbh.github.io/ngx-http/guide/define-a-connection).
 
-Every possible property in the translation config is documented aswell in [references](https://ogs-gmbh.github.io/ngx-translate/reference/types/SpecificTranslateConfig).
+Every possible property in the translation config is documented aswell in [references](/reference/types/SpecificTranslateConfig).
 
 ```typescript [example.ts]
 import { TranslationConfig } from "@ogs-gmbh/ngx-translate";
@@ -97,7 +97,7 @@ export class AppModule {}
 
 ## Implementation
 
-To make use of the translation lib, simply use our [`TranslationPipe`](). The pipe is automatically provided by providing the `TranslationModule`.
+To make use of the translation lib, simply use our [`TranslationPipe`](/reference/classes/TranslationPipe). The pipe is automatically provided by providing the `TranslationModule`.
 
 Later in your Angular template, you can simply take the following code as an example:
 

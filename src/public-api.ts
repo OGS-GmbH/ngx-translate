@@ -18,3 +18,5 @@ export * from "./providers/config.provider";
 export * from "./providers/interceptor.provider";
 export * from "./pipe.module";
 export * from "./lib.module";
+export * from "./types/store.type";
+export * from "./types/provider.type";

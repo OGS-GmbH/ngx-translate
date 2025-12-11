@@ -285,7 +285,7 @@ export class TranslationStoreService {
    * Get notifier scopes by scope names
    *
    * @param scopeNames - An array of scope names
-   * @retuns `NotifierScopes` if found, otherwise `undefined`
+   * @returns `NotifierScopes` if found, otherwise `undefined`
    *
    * @since 1.0.0
    * @author Simon Kovtyk

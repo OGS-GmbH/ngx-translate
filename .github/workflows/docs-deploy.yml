@@ -13,4 +13,3 @@ jobs:
     uses: OGS-GmbH/reusable-github-actions/.github/workflows/npm-package-docs.yml@main
     secrets:
       GH_DEPLOY_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
-      FONTAWESOME_REGISTRY_AUTH_TOKEN: ${{ secrets.FONTAWESOME_REGISTRY_AUTH_TOKEN }}

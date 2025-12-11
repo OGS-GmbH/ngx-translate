@@ -9,6 +9,12 @@ import { provideTranslationConfig } from "./providers/config.provider";
 import { provideTranslationHttpConfig, provideTranslationHttpOptions } from "./providers/http.provider";
 import { provideTranslationInterceptor } from "./providers/interceptor.provider";
 
+/**
+ * Translation Module, that bundles all translation related functionality
+ *
+ * @since 1.0.0
+ * @author Simon Kovtyk
+ */
 @NgModule({
   imports: [
     CommonModule,
@@ -26,6 +32,13 @@ import { provideTranslationInterceptor } from "./providers/interceptor.provider"
 })
 /* eslint-disable-next-line @tseslint/no-extraneous-class */
 export class TranslationModule {
+  /**
+   * Configure the Translation Module with the specified configuration
+   * @param translateConfig - The translation configuration
+   *
+   * @since 1.0.0
+   * @author Simon Kovtyk
+   */
   public static forRoot (translateConfig: Readonly<TranslateConfig>): ModuleWithProviders<TranslationModule> {
     const providers: Provider[] = [
       provideTranslationConfig(translateConfig.translate),

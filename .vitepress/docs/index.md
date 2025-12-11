@@ -13,7 +13,7 @@ hero:
       link: /reference
     - theme: alt
       text: GitHub
-      link: https://github.com/OGS-GmbH/linter
+      link: https://github.com/OGS-GmbH/ngx-translate
 
 features:
   - icon: <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#FFFFFF"><path d="M480-383.33 383.33-480 480-576.67 576.67-480 480-383.33Zm-85-274.34-88.67-88.66L480-920l173.67 173.67L565-657.67l-85-85-85 85ZM213.67-306.33 40-480l173.67-173.67L302.33-565l-85 85 85 85-88.66 88.67Zm532.66 0L657.67-395l85-85-85-85 88.66-88.67L920-480 746.33-306.33ZM480-40 306.33-213.67 395-302.33l85 85 85-85 88.67 88.66L480-40Z"/></svg>
@@ -26,6 +26,6 @@ features:
     title: Multi-scoping ready
     details: Request multiple scopes which include translations at once
   - icon: <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#FFFFFF"><path d="m320-241.33-240-240 241.33-241.34L369-675 175-481l192.33 192.33L320-241.33ZM638.67-240 591-287.67l194-194L592.67-674 640-721.33l240 240L638.67-240Z"/></svg>
-    title: Bloat-free
+    title: Developer experience
     details: Use a local language for development & production
 --- 

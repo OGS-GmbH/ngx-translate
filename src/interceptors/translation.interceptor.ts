@@ -4,6 +4,13 @@ import { LocaleConfig } from "../types/config.type";
 import { Observable } from "rxjs";
 import { TranslationStoreService } from "../services/translation-store.service";
 
+/**
+ * Interceptor to add the current locale language header to HTTP requests.
+ * @remarks Adds a `language` header with the value of the current locale to each outgoing HTTP request.
+ *
+ * @since 1.0.0
+ * @author Simon Kovtyk
+ */
 @Injectable({
   providedIn: "root"
 })

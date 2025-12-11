@@ -3,7 +3,7 @@ import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
-  title: "Translation (i18n) lib",
+  title: "Translation lib",
   description: "A lightweight, REST-based Angular i18n library designed for seamless internationalization with minimal setup. It supports dynamic language switching & flexible translation management via RESTful APIs.",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -11,7 +11,7 @@ export default withMermaid({
     nav: [
       { text: "Guide", link: "/guide" },
       { text: "Reference", link: "/reference" },
-      { text: "GitHub", link: "https://github.com/OGS-GmbH/linter" }
+      { text: "GitHub", link: "https://github.com/OGS-GmbH/ngx-translate" }
     ],
     socialLinks: [
       { icon: "github", link: "https://github.com/OGS-GmbH" },
@@ -28,7 +28,8 @@ export default withMermaid({
           { text: "Getting started", link: "/guide/" },
           { text: "Define a token", link: "/guide/define-a-token" },
           { text: "Define a scope", link: "/guide/define-a-scope" },
-          { text: "Preloading scopes", link: "/guide/preloading-scopes" }
+          { text: "Preloading scopes", link: "/guide/preloading-scopes" },
+          { text: "Translate by service", link: "/guide/translate-by-service" }
         ]
       },
       {

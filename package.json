@@ -27,10 +27,10 @@
 	},
 	"scripts": {
 		"ci:build:main:production": "ng build",
-		"ci:pr:commitlint:main:commitlint": "commitlint",
-		"ci:pr:lint:main:eslint": "eslint .",
 		"ci:docs:extract:typedoc": "typedoc && bash ./prepare-typedoc.sh",
 		"ci:docs:main:vitepress": "vitepress build .vitepress",
+		"ci:pr:commitlint:main:commitlint": "commitlint",
+		"ci:pr:lint:main:eslint": "eslint .",
 		"prepare": "husky",
 		"vitepress": "vitepress dev .vitepress",
 		"vitepress-preview": "vitepress preview .vitepress"
@@ -79,6 +79,6 @@
 	},
 	"sideEffects": false,
 	"publishConfig": {
-		"directory": "dist/prod"
+		"directory": "dist/main"
 	}
 }
