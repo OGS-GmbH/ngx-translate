@@ -75,6 +75,7 @@
 		"@angular/common": "^18.2.1",
 		"@angular/core": "^18.2.1",
 		"@ogs-gmbh/ngx-http": "^1",
+		"es-toolkit": "^1.43.0",
 		"rxjs": "~7.8.1"
 	},
 	"sideEffects": false,
