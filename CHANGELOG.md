@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/OGS-GmbH/ngx-translate/compare/v1.3.0...v1.4.0) (2025-12-15)
+
+
+### Features
+
+* **translation-pipe:** add subject for reactive update of token ([#13](https://github.com/OGS-GmbH/ngx-translate/issues/13)) ([aca732b](https://github.com/OGS-GmbH/ngx-translate/commit/aca732b6fbbf431abd9b1f1854215298eb872175))
+
 ## [1.3.0](https://github.com/OGS-GmbH/ngx-translate/compare/v1.2.0...v1.3.0) (2025-07-04)
 
 
