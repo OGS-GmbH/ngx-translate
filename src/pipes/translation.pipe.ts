@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, DestroyRef, Pipe, PipeTransform, inject } from "@angular/core";
 import { SpecificTranslateConfig, TRANSLATION_CONFIG_TOKEN } from "../public-api";
-import { EMPTY, Observable, Subject, catchError, distinctUntilChanged, of, switchMap } from "rxjs";
+import { Observable, Subject, catchError, distinctUntilChanged, of, switchMap, throwError } from "rxjs";
 import { TRANSLATION_SCOPE_TOKEN } from "../tokens/scope.token";
 import { TranslationService } from "../services/translation.service";
 import { resolveScope } from "../utils/translate.util";
@@ -9,29 +9,49 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { isEqual } from "es-toolkit";
 
 /**
- * TODO: consider making public
- * @internal
- *
  * Represents a localizable Translation
  *
- * @since 1.3.1
+ * @since 1.4.0
  * @author Ian Wenneckers
- *
  */
-interface TranslationInfo {
-  defaultText: string;
+export type TransformSnapshot = {
+  /**
+   * Value, that gets piped
+   *
+   * @remarks Will be used as possible fallback value.
+   *
+   * @since 1.4.0
+   * @author Ian Wenneckers
+   */
+  value: string;
+  /**
+   * Token, that was used to translate the value
+   *
+   * @since 1.4.0
+   * @author Ian Wenneckers
+   */
   token: string;
+  /**
+   * Scope, that was searched for `token`
+   *
+   * @since 1.4.0
+   * @author Ian Wenneckers
+   */
   scope?: Readonly<string | Array<string | null> | null> | undefined;
+  /**
+   * Flag, that enables fallbacks to `value`
+   *
+   * @since 1.4.0
+   * @author Ian Wenneckers
+   */
   shouldFallback?: boolean | undefined;
-}
-
-
+};
 @Pipe({
   name: "translate",
   pure: false
 })
 export class TranslationPipe implements PipeTransform {
-  private readonly _translation$: Subject<TranslationInfo> = new Subject<TranslationInfo>();
+  private readonly _transformSnapshot$: Subject<TransformSnapshot> = new Subject<TransformSnapshot>();
 
   private readonly _destroyRef: DestroyRef = inject(DestroyRef);
 
@@ -46,17 +66,17 @@ export class TranslationPipe implements PipeTransform {
   private readonly _translationConfig: SpecificTranslateConfig | null = inject(TRANSLATION_CONFIG_TOKEN, { optional: true });
 
   constructor () {
-    this._translation$
+    this._transformSnapshot$
       .pipe(
         takeUntilDestroyed(this._destroyRef),
         distinctUntilChanged(isEqual),
-        switchMap((translationInfo: Readonly<TranslationInfo>) => this._translationService
-          .translateTokenByLocale$(translationInfo.token, translationInfo.defaultText, this._resolveScope(translationInfo.scope))
+        switchMap((translationInfo: Readonly<TransformSnapshot>) => this._translationService
+          .translateTokenByLocale$(translationInfo.token, translationInfo.value, this._resolveScope(translationInfo.scope))
           .pipe(
             catchError((_httpErrorResponse: HttpErrorResponse, _: Observable<string>): Observable<string> => {
               const fallbackToSourceLocale: boolean | undefined = translationInfo.shouldFallback ?? this._translationConfig?.fallbackToSourceLocale;
 
-              return fallbackToSourceLocale ? of(translationInfo.defaultText) : EMPTY;
+              return fallbackToSourceLocale ? of(translationInfo.value) : throwError(() => _httpErrorResponse);
             }),
             distinctUntilChanged()
           ))
@@ -64,7 +84,6 @@ export class TranslationPipe implements PipeTransform {
         this._updateLastValue(translatedValue);
       });
   }
-
 
   /**
    * Transforms a token into its translated value
@@ -84,14 +103,14 @@ export class TranslationPipe implements PipeTransform {
     scope?: Readonly<Array<string | null> | string | null>,
     shouldFallback?: boolean
   ): string {
-    const translationInfo: TranslationInfo = {
-      defaultText: value,
+    const translationInfo: TransformSnapshot = {
+      value,
       token,
       scope,
       shouldFallback
     };
 
-    this._translation$.next(translationInfo);
+    this._transformSnapshot$.next(translationInfo);
 
     return this._lastValue ?? value;
   }
