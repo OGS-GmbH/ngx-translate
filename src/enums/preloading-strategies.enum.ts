@@ -6,18 +6,8 @@
  * @author Simon Kovtyk
  */
 export enum PreloadingStrategies {
-  /**
-   * Preload translations during application initialization
-   *
-   * @since 1.0.0
-   * @author Simon Kovtyk
-   */
+  /** Preload translations during application initialization */
   INITIALIZATION = "initialization",
-  /**
-   * Preload translations during application runtime
-   *
-   * @since 1.0.0
-   * @author Simon Kovtyk
-   */
+  /** Preload translations during application runtime */
   RUNTIME = "runtime"
 }

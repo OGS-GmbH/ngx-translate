@@ -6,18 +6,8 @@
  * @author Simon Kovtyk
  */
 export enum CollectingStrategies {
-  /**
-   * Collect every translation, regardless of the current locale
-   *
-   * @since 1.0.0
-   * @author Simon Kovtyk
-   */
+  /** Collect every translation, regardless of the current locale */
   ALL = "all",
-  /**
-   * Collect only translations of the current locale
-   *
-   * @since 1.0.0
-   * @author Simon Kovtyk
-   */
+  /** Collect only translations of the current locale */
   CURRENT = "current"
 }
