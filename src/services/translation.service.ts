@@ -8,7 +8,7 @@ import { findScopeInMultiScopedFile, findTokenInScopedFiles, parseMultiScopedFil
 import { resolveScope, translateTokenByScopedFile, translateTokenByScopedFiles } from "../utils/translate.util";
 import { HttpClient } from "@angular/common/http";
 import { TRANSLATION_CONFIG_TOKEN } from "../tokens/config.token";
-import { TranslationHttpSerivce } from "./translation-http.serivce";
+import { TranslationHttpService } from "./translation-http.serivce";
 import { TranslationNotDefinedError } from "../errors/translation-not-defined.error";
 import { TranslationStoreService } from "./translation-store.service";
 
@@ -29,7 +29,7 @@ export class TranslationService {
 
   private readonly _translationStoreService: TranslationStoreService = inject(TranslationStoreService);
 
-  private readonly _translationHttpService: TranslationHttpSerivce = inject(TranslationHttpSerivce);
+  private readonly _translationHttpService: TranslationHttpService = inject(TranslationHttpService);
 
   private readonly _isHttpLoading: BehaviorSubject<HttpRequestStatus | null> = new BehaviorSubject<HttpRequestStatus | null>(null);
 
@@ -37,7 +37,7 @@ export class TranslationService {
 
   /**
    * An `Observable`, that will emit only when a HTTP-Request is made
-   * @returns An `Observable` with the {@link HttpRequestStatus} if HTTP is currently under use. Otherwise an `Observable` with null inside.
+   * @returns An `Observable` with the `HttpRequestStatus` if HTTP is currently under use. Otherwise an `Observable` with null inside.
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -66,7 +66,7 @@ export class TranslationService {
   public _preloadWithRef$ (
     httpClient: Readonly<HttpClient>,
     translationStoreService: Readonly<TranslationStoreService>,
-    translationHttpService: Readonly<TranslationHttpSerivce>,
+    translationHttpService: Readonly<TranslationHttpService>,
     _locale: LocaleConfig,
     scopeName: ReadonlyArray<string | null> | string | null,
     httpOptions?: HttpOptions<never, HttpHeadersOption, never>
@@ -213,7 +213,7 @@ export class TranslationService {
   public preloadByLocale (
     httpClient: Readonly<HttpClient>,
     translationStoreService: Readonly<TranslationStoreService>,
-    translationHttpService: Readonly<TranslationHttpSerivce>,
+    translationHttpService: Readonly<TranslationHttpService>,
     scopeName: string | null | ReadonlyArray<string | null>,
     httpOptions?: HttpOptions<never, HttpHeadersOption, never>
   ): Observable<void> {
@@ -246,7 +246,7 @@ export class TranslationService {
   public preloadByCurrentLocale (
     httpClient: Readonly<HttpClient>,
     translationStoreService: Readonly<TranslationStoreService>,
-    translationHttpService: Readonly<TranslationHttpSerivce>,
+    translationHttpService: Readonly<TranslationHttpService>,
     scopeName: string | null | ReadonlyArray<string | null>,
     httpOptions?: HttpOptions<never, HttpHeadersOption, never>
   ): Observable<void> {
@@ -341,7 +341,7 @@ export class TranslationService {
   private _getScopedFileByHttpWithRef$<T extends ReadonlyArray<string | null> | string | null>(
     httpClient: Readonly<HttpClient>,
     translationStoreService: Readonly<TranslationStoreService>,
-    translationHttpService: Readonly<TranslationHttpSerivce>,
+    translationHttpService: Readonly<TranslationHttpService>,
     scope: T,
     httpOptions?: HttpOptions<never, HttpHeadersOption, never>
   ): Observable<T extends ReadonlyArray<string | null> ? MultiScopedFile : ScopedFile> {
@@ -409,7 +409,7 @@ export class TranslationService {
   private _translateWithRef$ (
     httpClient: Readonly<HttpClient>,
     translationStoreService: Readonly<TranslationStoreService>,
-    translationHttpService: Readonly<TranslationHttpSerivce>,
+    translationHttpService: Readonly<TranslationHttpService>,
     locale: LocaleConfig,
     token: string,
     value: string,

@@ -3,8 +3,8 @@ layout: home
 isHome: true
 
 hero:
-  text: ngx-translate
-  tagline: A lightweight, REST-based Angular i18n library designed for seamless internationalization with minimal setup. It supports dynamic language switching & flexible translation management via RESTful APIs.
+  text: i18n, but easier to write
+  tagline: A lightweight, REST-based Angular i18n library designed for seamless internationalization with minimal setup.
   actions:
     - theme: brand
       text: Get started
@@ -17,16 +17,16 @@ hero:
       link: https://github.com/OGS-GmbH/ngx-translate
 
 features:
-  - icon: <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#FFFFFF"><path d="M480-383.33 383.33-480 480-576.67 576.67-480 480-383.33Zm-85-274.34-88.67-88.66L480-920l173.67 173.67L565-657.67l-85-85-85 85ZM213.67-306.33 40-480l173.67-173.67L302.33-565l-85 85 85 85-88.66 88.67Zm532.66 0L657.67-395l85-85-85-85 88.66-88.67L920-480 746.33-306.33ZM480-40 306.33-213.67 395-302.33l85 85 85-85 88.67 88.66L480-40Z"/></svg>
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M18 16.98h-5.99c-1.1 0-1.95.94-2.48 1.9A4 4 0 0 1 2 17c.01-.7.2-1.4.57-2"/><path d="m6 17 3.13-5.78c.53-.97.1-2.18-.5-3.1a4 4 0 1 1 6.89-4.06"/><path d="m12 6 3.13 5.73C15.66 12.7 16.9 13 18 13a4 4 0 0 1 0 8"/></svg>
     title: REST-based
     details: Save, query and provide translations by API.
-  - icon: <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#FFFFFF"><path d="M705-128 447-388q-23 8-46 13t-47 5q-97.08 0-165.04-67.67Q121-505.33 121-602q0-31 8.16-60.39T152-718l145 145 92-86-149-149q25.91-15.16 54.96-23.58Q324-840 354-840q99.17 0 168.58 69.42Q592-701.17 592-602q0 24-5 47t-13 46l259 258q11 10.96 11 26.48T833-198l-76 70q-10.7 11-25.85 11Q716-117 705-128Zm28-57 40-40-273-273q16-21 24-49.5t8-54.5q0-75-55.5-127T350-782l102 104q9 9 8.5 21.5T451-635L318-510q-9.27 8-21.64 8-12.36 0-20.36-8l-98-97q3 77 54.67 127T354-430q25 0 53-8t49-24l277 277ZM476-484Z"/></svg>
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
     title: Optimized for performance
     details: Pre-load, lazy-load and cache your translations
-  - icon: <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#FFFFFF"><path d="M233.33-120q-64 0-108.66-44.67Q80-209.33 80-273.33T124.67-382q44.66-44.67 108.66-44.67T342-382q44.67 44.67 44.67 108.67T342-164.67Q297.33-120 233.33-120Zm494 0q-64 0-108.66-44.67Q574-209.33 574-273.33T618.67-382q44.66-44.67 108.66-44.67T836-382q44.67 44.67 44.67 108.67T836-164.67Q791.33-120 727.33-120Zm-494-66.67q36.34 0 61.5-25.16Q320-237 320-273.33q0-36.34-25.17-61.5Q269.67-360 233.33-360q-36.33 0-61.5 25.17-25.16 25.16-25.16 61.5 0 36.33 25.16 61.5 25.17 25.16 61.5 25.16Zm494 0q36.34 0 61.5-25.16Q814-237 814-273.33q0-36.34-25.17-61.5Q763.67-360 727.33-360q-36.33 0-61.5 25.17-25.16 25.16-25.16 61.5 0 36.33 25.16 61.5 25.17 25.16 61.5 25.16ZM480.67-365.33q-30.32 0-51.16-20.85-20.84-20.84-20.84-51.15 0-30.32 20.84-51.16 20.84-20.84 51.16-20.84 30.31 0 51.15 20.84 20.85 20.84 20.85 51.16 0 30.31-20.85 51.15-20.84 20.85-51.15 20.85Zm0-208q-64 0-108.67-44.67t-44.67-108.67q0-64 44.67-108.66Q416.67-880 480.67-880t108.66 44.67Q634-790.67 634-726.67T589.33-618q-44.66 44.67-108.66 44.67Zm0-66.67q36.33 0 61.5-25.17 25.16-25.16 25.16-61.5 0-36.33-25.16-61.5-25.17-25.16-61.5-25.16-36.34 0-61.5 25.16Q394-763 394-726.67q0 36.34 25.17 61.5Q444.33-640 480.67-640Zm0-86.67ZM233.33-273.33Zm494 0Z"/></svg>
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8"/><path d="M16.7 2.7A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.7-1.7zM5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.73-1"/></svg>
     title: Multi-scoping ready
     details: Request multiple scopes which include translations at once
-  - icon: <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#FFFFFF"><path d="m320-241.33-240-240 241.33-241.34L369-675 175-481l192.33 192.33L320-241.33ZM638.67-240 591-287.67l194-194L592.67-674 640-721.33l240 240L638.67-240Z"/></svg>
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M15.39 4.39a1 1 0 0 0 1.68-.47 2.5 2.5 0 1 1 3.01 3.01 1 1 0 0 0-.47 1.68l1.68 1.68a2.41 2.41 0 0 1 0 3.42l-1.68 1.68a1 1 0 0 1-1.68-.47 2.5 2.5 0 1 0-3.01 3.01 1 1 0 0 1 .47 1.68l-1.68 1.68a2.41 2.41 0 0 1-3.42 0l-1.68-1.68a1 1 0 0 0-1.68.47 2.5 2.5 0 1 1-3.01-3.01 1 1 0 0 0 .47-1.68L2.71 13.7a2.41 2.41 0 0 1 0-3.42l1.68-1.68a1 1 0 0 1 1.68.47 2.5 2.5 0 1 0 3.01-3.01 1 1 0 0 1-.47-1.68l1.68-1.68a2.41 2.41 0 0 1 3.42 0z"/></svg>
     title: Developer experience
     details: Use a local language for development & production
 --- 

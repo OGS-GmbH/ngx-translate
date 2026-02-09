@@ -55,10 +55,7 @@ import { TranslationModule, provideTranslationScope } from "@ogs-gmbh/ngx-transl
 
 @NgModule({
   imports: [
-    TranslationModule.forChild(
-      myTranslationConfig
-      // Follow our other guide on this
-    )
+    TranslationModule
   ],
   providers: [
     provideTranslationScope("my-module-scope")

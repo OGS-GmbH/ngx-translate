@@ -17,7 +17,7 @@ import { TRANSLATION_HTTP_CONFIG, TRANSLATION_HTTP_OPTIONS } from "../tokens/htt
 @Injectable({
   providedIn: "root"
 })
-export class TranslationHttpSerivce {
+export class TranslationHttpService {
   private readonly _translationHttpConfig: string = inject(TRANSLATION_HTTP_CONFIG);
 
   private readonly _translationConfig: SpecificTranslateConfig | null = inject(TRANSLATION_CONFIG_TOKEN, { optional: true });

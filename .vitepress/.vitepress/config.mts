@@ -26,8 +26,8 @@ export default withMermaid({
       { text: "Guide", link: "/guide" },
       { text: "Reference", link: "/reference" },
       { text: packageJson.version, items: [
-        { text: "Repository", link: "https://github.com/OGS-GmbH/ngx-http" },
-        { text: "Changelog", link: "https://github.com/OGS-GmbH/ngx-http/blob/main/CHANGELOG.md" },
+        { text: "Repository", link: "https://github.com/OGS-GmbH/ngx-translate" },
+        { text: "Changelog", link: "https://github.com/OGS-GmbH/ngx-translate/blob/main/CHANGELOG.md" },
         { text: "Contributing", link: "/other/contributing" },
       ] }
     ],

@@ -1,7 +1,7 @@
 import { EnvironmentProviders, FactoryProvider, inject, provideAppInitializer } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { TRANSLATION_PRELOAD_TOKEN } from "../tokens/preload.token";
-import { TranslationHttpSerivce } from "../services/translation-http.serivce";
+import { TranslationHttpService } from "../services/translation-http.serivce";
 import { TranslationPreloadProvider } from "../types/provider.type";
 import { TranslationService } from "../services/translation.service";
 import { TranslationStoreService } from "../services/translation-store.service";
@@ -10,7 +10,7 @@ import { PreloadingStrategy } from "../enums/preloading-strategy.enum";
 /* eslint-disable @tseslint/max-params */
 const handleInitializationStrategy = (
   httpClient: Readonly<HttpClient>,
-  translationHttpService: Readonly<TranslationHttpSerivce>,
+  translationHttpService: Readonly<TranslationHttpService>,
   translationStoreService: Readonly<TranslationStoreService>,
   translationSerivce: Readonly<TranslationService>,
   scopes: Readonly<Array<string | null> | string | null>
@@ -19,7 +19,7 @@ const handleInitializationStrategy = (
 /* eslint-disable @tseslint/max-params */
 const handleRuntimeStrategy = (
   httpClient: Readonly<HttpClient>,
-  translationHttpService: Readonly<TranslationHttpSerivce>,
+  translationHttpService: Readonly<TranslationHttpService>,
   translationStoreService: Readonly<TranslationStoreService>,
   translationSerivce: Readonly<TranslationService>,
   scopes: Readonly<Array<string | null> | string | null>
@@ -45,7 +45,7 @@ export const provideTranslationPreload = (preloadProvider: Readonly<TranslationP
     case PreloadingStrategy.INITIALIZATION: {
       return provideAppInitializer(() => {
         const httpClient: Readonly<HttpClient> = inject(HttpClient);
-        const translationHttpService: Readonly<TranslationHttpSerivce> = inject(TranslationHttpSerivce);
+        const translationHttpService: Readonly<TranslationHttpService> = inject(TranslationHttpService);
         const translationStoreService: Readonly<TranslationStoreService> = inject(TranslationStoreService);
         const translationService: Readonly<TranslationService> = inject(TranslationService);
 
@@ -58,11 +58,11 @@ export const provideTranslationPreload = (preloadProvider: Readonly<TranslationP
         provide: TRANSLATION_PRELOAD_TOKEN,
         useFactory: (
           httpClient: Readonly<HttpClient>,
-          translationHttpService: Readonly<TranslationHttpSerivce>,
+          translationHttpService: Readonly<TranslationHttpService>,
           translationStoreService: Readonly<TranslationStoreService>,
           translationSerivce: Readonly<TranslationService>
         ): () => void => handleRuntimeStrategy(httpClient, translationHttpService, translationStoreService, translationSerivce, preloadProvider.scopes),
-        deps: [ HttpClient, TranslationHttpSerivce, TranslationStoreService, TranslationService ],
+        deps: [ HttpClient, TranslationHttpService, TranslationStoreService, TranslationService ],
         multi: false
       };
     }
@@ -72,7 +72,7 @@ export const provideTranslationPreload = (preloadProvider: Readonly<TranslationP
 /* eslint-disable @tseslint/max-params */
 const handleReactiveInitializationStrategy = (
   httpClient: Readonly<HttpClient>,
-  translationHttpService: Readonly<TranslationHttpSerivce>,
+  translationHttpService: Readonly<TranslationHttpService>,
   translationStoreService: Readonly<TranslationStoreService>,
   translationSerivce: Readonly<TranslationService>,
   scopes: Readonly<Array<string | null> | string | null>
@@ -81,7 +81,7 @@ const handleReactiveInitializationStrategy = (
 /* eslint-disable @tseslint/max-params */
 const handleReactiveRuntimeStrategy = (
   httpClient: Readonly<HttpClient>,
-  translationHttpService: Readonly<TranslationHttpSerivce>,
+  translationHttpService: Readonly<TranslationHttpService>,
   translationStoreService: Readonly<TranslationStoreService>,
   translationSerivce: Readonly<TranslationService>,
   scopes: Readonly<Array<string | null> | string | null>
@@ -107,7 +107,7 @@ export const provideTranslationPreloadReactive = (preloadProvider: Readonly<Tran
     case PreloadingStrategy.INITIALIZATION: {
       return provideAppInitializer(() => {
         const httpClient: Readonly<HttpClient> = inject(HttpClient);
-        const translationHttpService: Readonly<TranslationHttpSerivce> = inject(TranslationHttpSerivce);
+        const translationHttpService: Readonly<TranslationHttpService> = inject(TranslationHttpService);
         const translationStoreService: Readonly<TranslationStoreService> = inject(TranslationStoreService);
         const translationService: Readonly<TranslationService> = inject(TranslationService);
 
@@ -120,11 +120,11 @@ export const provideTranslationPreloadReactive = (preloadProvider: Readonly<Tran
         provide: TRANSLATION_PRELOAD_TOKEN,
         useFactory: (
           httpClient: Readonly<HttpClient>,
-          translationHttpService: Readonly<TranslationHttpSerivce>,
+          translationHttpService: Readonly<TranslationHttpService>,
           translationStoreService: Readonly<TranslationStoreService>,
           translationSerivce: Readonly<TranslationService>
         ) => handleReactiveRuntimeStrategy(httpClient, translationHttpService, translationStoreService, translationSerivce, preloadProvider.scopes),
-        deps: [ HttpClient, TranslationHttpSerivce, TranslationStoreService, TranslationService ],
+        deps: [ HttpClient, TranslationHttpService, TranslationStoreService, TranslationService ],
         multi: false
       };
     }
