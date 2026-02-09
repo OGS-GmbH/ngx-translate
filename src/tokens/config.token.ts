@@ -2,8 +2,9 @@ import { InjectionToken } from "@angular/core";
 import { SpecificTranslateConfig } from "../types/config.type";
 
 /**
- * Injection token for translation configuration
+ * Injection token for {@link SpecificTranslateConfig}
  * @readonly
+ * @category NG config
  *
  * @since 1.0.0
  * @author Simon Kovtyk

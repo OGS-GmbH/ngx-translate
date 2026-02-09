@@ -4,9 +4,9 @@ import { findScopeInMultiScopedFile } from "./file.util";
 
 /**
  * Translate token by a scoped file
- * @param {ScopedFile} scopedFile - The scoped file, that should include the translation
- * @param {string} token - The token, that'll be translated
- * @returns {string | undefined} - string, that represents the translated token. If no translation was found undefined.
+ * @param scopedFile - The scoped file, that should include the translation
+ * @param token - The token, that'll be translated
+ * @returns A `string`, that represents the translated token. If no translation was found `undefined`.
  */
 export const translateTokenByScopedFile = (scopedFile: ScopedFile, token: string): string | undefined => {
   const isTokenValid: boolean = Object.keys(scopedFile).includes(token);
@@ -32,10 +32,10 @@ export const translateTokenByScopedFiles = (scopedFiles: ScopedFile[], token: st
 };
 /**
  * Translate token by a multi scoped file by first resolving the scope out of the multi scoped file
- * @param {MultiScopedFile} multiScopedFile - The MultiScopedFile, that should includes the scope to search and the token
- * @param {string | null} scopeName - The scope name which should include the translation for the token
- * @param {string} token - The token, that'll be translated
- * @returns {string | undefined} - string, that represents the translated token. If no translation was found undefined.
+ * @param multiScopedFile - The MultiScopedFile, that should includes the scope to search and the token
+ * @param scopeName - The scope name which should include the translation for the token
+ * @param token - The token, that'll be translated
+ * @returns A `string`, that represents the translated token. If no translation was found `undefined`.
  */
 export const translateTokenByMultiScopedFile = (multiScopedFile: MultiScopedFile, scopeName: string | null, token: string): string | undefined => {
   const scopedFile: ScopedFile = findScopeInMultiScopedFile(multiScopedFile, scopeName);

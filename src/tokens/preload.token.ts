@@ -3,6 +3,7 @@ import { InjectionToken } from "@angular/core";
 /**
  * Injection token for translation preloading
  * @readonly
+ * @category NG config
  *
  * @since 1.0.0
  * @author Simon Kovtyk

@@ -4,8 +4,8 @@ import { TranslationNotDefinedError } from "../errors/translation-not-defined.er
 
 /**
  * Parse a multi scoped file by the defined scopes
- * @param {MultiScopedFile} multiScopedFile - The multi scoped file, that should be parsed
- * @returns {ParsedMultiScopedFiles} - A partial scoped file for processing it further
+ * @param multiScopedFile - The multi scoped file, that should be parsed
+ * @returns A partial scoped file for processing it further
  */
 export const parseMultiScopedFile = (multiScopedFile: MultiScopedFile): ParsedMultiScopedFiles => {
   const splittedMultiScopedFile: ParsedMultiScopedFiles = [];
@@ -55,9 +55,10 @@ export const splitMultiScopedFile = (multiScopedFile: MultiScopedFile): ScopedFi
 /**
  * Find a scope inside a multi scoped file\
  * Throws an error if the scope could not be resolved out of the multi scoped file
- * @param {MultiScopedFile} multiScopedFile - The multi scoped file, that should include the scope
- * @param {string | null} scopeName - The scope name, that'll be searched
- * @returns {ScopedFile} - The found scoped file
+ * @param multiScopedFile - The multi scoped file, that should include the scope
+ * @param scopeName - The scope name, that'll be searched
+ * @returns The found scoped file
+ * @throws {@link ScopeNotDefinedError} When the scope could not be found in the multi scoped file
  */
 export const findScopeInMultiScopedFile = (multiScopedFile: MultiScopedFile, scopeName: string | null): ScopedFile => {
   // Filter all not-nested elements to represent the global scope.
@@ -79,15 +80,20 @@ export const findScopeInMultiScopedFile = (multiScopedFile: MultiScopedFile, sco
   // Get the specific scoped file
   const scopedFile: ScopedFile | undefined = multiScopedFile[ scopeName ];
 
-  if (scopedFile === undefined) throw new ScopeNotDefinedError(false, scopeName);
+  if (scopedFile === undefined) {
+    throw new ScopeNotDefinedError({
+      isDefaultScope: false,
+      scope: scopeName
+    });
+  }
 
   return scopedFile;
 };
 /**
  * Parse a multi scoped file
- * @param {MultiScopedFile} multiScopedFile - The multi scoped file, that'll be parsed
- * @param {string[] | string} scopeName - The scope name, that'll be resolved
- * @returns {ScopedFile[]} - All scoped files, that match the scope name
+ * @param multiScopedFile - The multi scoped file, that'll be parsed
+ * @param scopeName - The scope name, that'll be resolved
+ * @returns All scoped files, that match the scope name
  */
 export const parseMultiScopedFileByScope = (multiScopedFile: MultiScopedFile, scopeName: string[] | string): ScopedFile[] => {
   if (Array.isArray(scopeName))
@@ -96,10 +102,21 @@ export const parseMultiScopedFileByScope = (multiScopedFile: MultiScopedFile, sc
 
   return [ findScopeInMultiScopedFile(multiScopedFile, scopeName) ];
 };
+/**
+ * Find a token in the provided scoped file
+ * @param scopedFiles - The scoped file, that should include the token
+ * @param token - The token, that'll be searched
+ * @returns The scoped file with the found token
+ * @throws {@link TranslationNotDefinedError} When the token could not be found in the scoped file
+ */
 export const findTokenInScopedFiles = (scopedFiles: readonly ScopedFile[], token: string): ScopedFile => {
   const foundScopedFile: ScopedFile | undefined = scopedFiles.find((scopedFile: ScopedFile): boolean => Object.keys(scopedFile).includes(token));
 
-  if (foundScopedFile === undefined) throw new TranslationNotDefinedError(token);
+  if (foundScopedFile === undefined) {
+    throw new TranslationNotDefinedError({
+      token
+    });
+  }
 
   return foundScopedFile;
 };

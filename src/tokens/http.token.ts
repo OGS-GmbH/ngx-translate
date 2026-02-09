@@ -4,6 +4,7 @@ import { HttpHeadersOption, HttpOptions } from "@ogs-gmbh/ngx-http";
 /**
  * Injection token for HTTP configuration
  * @readonly
+ * @category NG config
  *
  * @since 1.0.0
  * @author Simon Kovtyk

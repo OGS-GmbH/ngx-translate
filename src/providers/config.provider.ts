@@ -5,8 +5,9 @@ import { ValueProvider } from "@angular/core";
 /**
  * Provides a translation configuration
  *
- * @param translationConfig - The translation configuration to provide
- * @returns A ValueProvider for the translation configuration
+ * @param translationConfig - The {@link SpecificTranslateConfig} configuration to provide
+ * @returns A `ValueProvider` for the translation configuration
+ * @category NG config
  *
  * @since 1.0.0
  * @author Simon Kovtyk

@@ -1,11 +1,19 @@
 import { HttpHeadersOption, HttpOptions, mergeHttpHeaders } from "@ogs-gmbh/ngx-http";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
+/* eslint-disable-next-line @tseslint/no-shadow */
 import { Observable, retry, timeout } from "rxjs";
 import { SpecificTranslateConfig } from "../types/config.type";
 import { TRANSLATION_CONFIG_TOKEN } from "../tokens/config.token";
 import { TRANSLATION_HTTP_CONFIG, TRANSLATION_HTTP_OPTIONS } from "../tokens/http.token";
 
+/**
+ * Core service as abstraction layer for HTTP handling
+ * @category NG services
+ *
+ * @since 1.0.0
+ * @author Simon Kovtyk
+ */
 @Injectable({
   providedIn: "root"
 })
@@ -17,12 +25,12 @@ export class TranslationHttpSerivce {
   private readonly _translationHttpOptions: HttpOptions<never, HttpHeadersOption, never> | null = inject(TRANSLATION_HTTP_OPTIONS, { optional: true });
 
   /**
-   * Gets translations with the provided HttpClient reference.
+   * Gets translations with the provided `HttpClient` reference.
    *
-   * @param httpClientRef - The HttpClient reference to use for the request.
+   * @param httpClientRef - The `HttpClient` reference to use for the request.
    * @param scopeName - The scope name(s) for the translations.
-   * @param httpOptions - Optional HTTP options to customize the request.
-   * @returns An Observable of the requested translations.
+   * @param httpOptions - Optional `HttpOptions` to customize the request.
+   * @returns An `Observable` of the requested translations.
    *
    * @since 1.0.0
    * @author Simon Kovtyk

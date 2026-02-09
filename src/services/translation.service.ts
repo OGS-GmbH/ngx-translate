@@ -1,4 +1,5 @@
 import { HttpRequestStatus, HttpOptions, HttpHeadersOption } from "@ogs-gmbh/ngx-http";
+/* eslint-disable-next-line @tseslint/no-shadow */
 import { BehaviorSubject, EMPTY, Observable, Subject, catchError, combineLatestWith, distinctUntilChanged, filter, map, of, switchMap, tap } from "rxjs";
 import { Injectable, inject } from "@angular/core";
 import { LocaleConfig, SpecificTranslateConfig } from "../types/config.type";
@@ -11,6 +12,13 @@ import { TranslationHttpSerivce } from "./translation-http.serivce";
 import { TranslationNotDefinedError } from "../errors/translation-not-defined.error";
 import { TranslationStoreService } from "./translation-store.service";
 
+/**
+ * Core service for translation handling
+ * @category NG services
+ *
+ * @since 1.0.0
+ * @author Simon Kovtyk
+ */
 @Injectable({
   providedIn: "root"
 })
@@ -28,8 +36,8 @@ export class TranslationService {
   private readonly _isHttpLoading$: Observable<HttpRequestStatus | null> = this._isHttpLoading.asObservable();
 
   /**
-   * An Observable, that will emit only when a HTTP-Request is made
-   * @returns An observable with the HttpRequestStatus if HTTP is currently under use. Otherwise an observable with null inside.
+   * An `Observable`, that will emit only when a HTTP-Request is made
+   * @returns An `Observable` with the {@link HttpRequestStatus} if HTTP is currently under use. Otherwise an `Observable` with null inside.
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -42,14 +50,14 @@ export class TranslationService {
   }
 
   /**
-   * Preload multiple translations with references to different various
-   * @param httpClient - The HttpClient, that'll be used
-   * @param translationStoreService - The TranslationStoreService, that'll be used
-   * @param translationHttpService - The TranslationHttpService, that'll be used
-   * @param _locale - The locale, that should be preloaded
+   * Preload multiple translations with references
+   * @param httpClient - The `HttpClient`, that'll be used
+   * @param translationStoreService - The {@link TranslationStoreService}, that'll be used
+   * @param translationHttpService - The {@link TranslationHttpService}, that'll be used
+   * @param _locale - The {@link LocaleConfig}, that should be preloaded
    * @param scopeName - The scope name for the lookup of the translation
    * @param httpOptions - Additional HTTP Options for the request
-   * @returns An observable to handle the status
+   * @returns An `Observable` to handle the status
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -121,15 +129,15 @@ export class TranslationService {
   }
 
   /**
-   * Translates a token by the locale reactive\
+   * Translates a token by the locale reactive
    * @param token - The token to resolve the translation
-   * @param scopeName - A scope name to resolve the lookup
    * @param value - The default value of the translation
+   * @param scopeName - A scope name to resolve the lookup
    * @param httpOptions - Additional HTTP Options for the request
-   * @returns An observable with the current translation as string
+   * @returns An `Observable` with the current translation as `string`
    *
    * @remarks
-   * If the locale changes, a new translation based on the new locale will be emitted.
+   * If the {@link LocaleConfig}, a new translation based on the new locale will be emitted.
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -153,15 +161,15 @@ export class TranslationService {
   }
 
   /**
-   * Translates a token by the current locale\
+   * Translates a token by the current locale
    * @param token - The token to resolve the translation
-   * @param scopeName - A scope name to resolve the lookup
    * @param value - The default value of the translation
+   * @param scopeName - A scope name to resolve the lookup
    * @param httpOptions - Additional HTTP Options for the request
-   * @returns An observable with the current translation as string
+   * @returns An `Observable` with the current translation as `string`
    *
    * @remarks
-   * If the locale changes, no new translation will be emitted.
+   * If the {@link LocaleConfig}, no new translation will be emitted.
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -188,15 +196,15 @@ export class TranslationService {
 
   /**
    * Preload translations by locale
-   * @param httpClient - The HttpClient, that'll be used
-   * @param translationStoreService - The TranslationStoreService, that'll be used
-   * @param translationHttpService - The TranslationHttpService, that'll be used
+   * @param httpClient - The `HttpClient`, that'll be used
+   * @param translationStoreService - The {@link TranslationStoreService}, that'll be used
+   * @param translationHttpService - The {@link TranslationHttpService}, that'll be used
    * @param scopeName - The scope name for the lookup of the translation
    * @param httpOptions - Additional HTTP Options for the request
-   * @returns An observable to handle the status
+   * @returns An `Observable` to handle the status
    *
    * @remarks
-   * If the locale changes, the scope will be preloaded again.
+   * If the {@link LocaleConfig} changes, the scope will be preloaded again.
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -221,15 +229,15 @@ export class TranslationService {
 
   /**
    * Preload translations by locale
-   * @param httpClient - The HttpClient, that'll be used
-   * @param translationStoreService - The TranslationStoreService, that'll be used
-   * @param translationHttpService - The TranslationHttpService, that'll be used
+   * @param httpClient - The `HttpClient`, that'll be used
+   * @param translationStoreService - The {@link TranslationStoreService}, that'll be used
+   * @param translationHttpService - The {@link TranslationHttpService}, that'll be used
    * @param scopeName - The scope name for the lookup of the translation
    * @param httpOptions - Additional HTTP Options for the request
-   * @returns An observable to handle the status
+   * @returns An `Observable` to handle the status
    *
    * @remarks
-   * If the locale changes, no new preloading will be made.
+   * If the {@link LocaleConfig} changes, no new preloading will be made.
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -260,8 +268,11 @@ export class TranslationService {
 
   /* eslint-disable-next-line @tseslint/class-methods-use-this */
   private _translateBySourceLocale (token: string, value?: string): Observable<string> {
-    if (!value)
-      throw new TranslationNotDefinedError(token);
+    if (!value) {
+      throw new TranslationNotDefinedError({
+        token
+      });
+    }
 
     return of(value);
   }
@@ -272,7 +283,12 @@ export class TranslationService {
       const scopedFile: ScopedFile = this._translationStoreService.getScopedFile(scope)!;
       const _translatedToken: string | undefined = translateTokenByScopedFile(scopedFile, token);
 
-      if (_translatedToken === undefined) throw new TranslationNotDefinedError(token);
+      if (_translatedToken === undefined) {
+        throw new TranslationNotDefinedError({
+          token,
+          scope
+        });
+      } 
 
       return of(_translatedToken);
     }
@@ -292,7 +308,12 @@ export class TranslationService {
         return true;
       });
 
-    if (translatedToken === undefined) throw new TranslationNotDefinedError(token);
+    if (translatedToken === undefined) {
+      throw new TranslationNotDefinedError({
+        token,
+        scope
+      });
+    };
 
     return of(translatedToken);
   }
@@ -423,7 +444,13 @@ export class TranslationService {
           .pipe(map((scopedFile: ScopedFile): string => {
             const translatedToken: string | undefined = translateTokenByScopedFile(scopedFile, token);
 
-            if (translatedToken === undefined) throw new TranslationNotDefinedError(token, value);
+            if (translatedToken === undefined) {
+              throw new TranslationNotDefinedError({
+                token,
+                locale,
+                scope: resolvedScopes
+              });
+            }
 
             return translatedToken;
           }));
@@ -458,7 +485,14 @@ export class TranslationService {
         map((scopedFiles: ScopedFile[]): string => {
           const translatedToken: string | undefined = translateTokenByScopedFiles(scopedFiles, token);
 
-          if (translatedToken === undefined) throw new TranslationNotDefinedError(token, value);
+          if (translatedToken === undefined) {
+            throw new TranslationNotDefinedError({
+              token,
+              value,
+              scope: resolvedScopes,
+              locale
+            });
+          }
 
           return translatedToken;
         })
@@ -483,8 +517,14 @@ export class TranslationService {
 
           const translatedToken: string | undefined = translateTokenByScopedFile(scopedFile, token);
 
-          if (translatedToken === undefined)
-            throw new TranslationNotDefinedError(token, value);
+          if (translatedToken === undefined) {
+            throw new TranslationNotDefinedError({
+              value,
+              token,
+              scope: resolvedScopes,
+              locale
+            });
+          }
 
           return translatedToken;
         }))
@@ -511,8 +551,14 @@ export class TranslationService {
             const foundScopedFile: ScopedFile = findTokenInScopedFiles(splittedMultiScopedFiles, token);
             const translatedToken: string | undefined = translateTokenByScopedFile(foundScopedFile, token);
 
-            if (translatedToken === undefined)
-              throw new TranslationNotDefinedError(token, value);
+            if (translatedToken === undefined) {
+              throw new TranslationNotDefinedError({
+                locale,
+                value,
+                token,
+                scope: resolvedScopes
+              });
+            }
 
             return translatedToken;
           })

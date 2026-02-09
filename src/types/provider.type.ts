@@ -1,22 +1,23 @@
 import { HttpHeadersOption, HttpOptions } from "@ogs-gmbh/ngx-http";
-import { PreloadingStrategies } from "../enums/preloading-strategies.enum";
+import { PreloadingStrategy } from "../enums/preloading-strategy.enum";
 
 /**
  * Base provider type for translation preloading
  * @readonly
+ * @category NG config
  *
  * @since 1.0.0
  * @author Simon Kovtyk
  */
 export type TranslationBaseProvider = {
   /**
-   * Preloading strategy to use
+   * {@link PreloadingStrategy} to use
    * @readonly
    *
    * @since 1.0.0
    * @author Simon Kovtyk
    */
-  readonly preloadingStrategy: PreloadingStrategies;
+  readonly preloadingStrategy: PreloadingStrategy;
   /**
    * Additional HTTP options for translation preloading requests (e.g. headers)
    * @readonly
@@ -29,6 +30,7 @@ export type TranslationBaseProvider = {
 /**
  * Provider type for translation preloading with HTTP scopes
  * @readonly
+ * @category NG config
  *
  * @since 1.0.0
  * @author Simon Kovtyk

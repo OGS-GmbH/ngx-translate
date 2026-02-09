@@ -2,7 +2,6 @@ import { ModuleWithProviders, NgModule, Provider } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TranslateConfig } from "./types/config.type";
 import { TranslationHttpSerivce } from "./services/translation-http.serivce";
-import { TranslationPipeModule } from "./pipe.module";
 import { TranslationService } from "./services/translation.service";
 import { TranslationStoreService } from "./services/translation-store.service";
 import { provideTranslationConfig } from "./providers/config.provider";
@@ -11,23 +10,20 @@ import { provideTranslationInterceptor } from "./providers/interceptor.provider"
 
 /**
  * Translation Module, that bundles all translation related functionality
+ * @category NG modules
  *
  * @since 1.0.0
  * @author Simon Kovtyk
  */
 @NgModule({
   imports: [
-    CommonModule,
-    TranslationPipeModule
+    CommonModule
   ],
   providers: [
     TranslationHttpSerivce,
     TranslationStoreService,
     TranslationService,
     provideTranslationInterceptor()
-  ],
-  exports: [
-    TranslationPipeModule
   ]
 })
 /* eslint-disable-next-line @tseslint/no-extraneous-class */
@@ -35,6 +31,7 @@ export class TranslationModule {
   /**
    * Configure the Translation Module with the specified configuration
    * @param translateConfig - The translation configuration
+   * @returns A `ModuleWithProviders` for the `TranslationModule` with the provided configuration
    *
    * @since 1.0.0
    * @author Simon Kovtyk

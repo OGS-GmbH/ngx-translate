@@ -1,14 +1,19 @@
+---
+prev: false
+next: false
+---
+
 # Translate by Service
 
 ## Usage
 
-Sometimes, it is necessary to translate not without [`TranslationPipe`](/reference/classes/TranslationPipe) but programatically by [`TranslationService`](/reference/classes/TranslationService).
+Sometimes, it is necessary to translate not without [`TranslationPipe`](/reference/NG_Pipes/TranslationPipe) but programatically by [`TranslationService`](/reference/NG_Services/TranslationService).
 
-We provide two ways to achieve it. Either reactively by using [`translateTokenByLocale`](/reference/classes/TranslationService#translatetokenbylocale) or by [`translateTokenByCurrentLocale`](/reference/classes/TranslationService#translatetokenbycurrentlocale).
+We provide two ways to achieve it. Either reactively by using [`translateTokenByLocale$`](/reference/NG_Services/TranslationService#translatetokenbylocale) or by [`translateTokenByCurrentLocale$`](/reference/NG_Services/TranslationService#translatetokenbycurrentlocale).
 
 ## Example
 
-Take the following code excerpt about [`translateTokenByLocale`](/reference/classes/TranslationService#translatetokenbylocale) as an example.
+Take the following code excerpt about [`translateTokenByLocale$`](/reference/NG_Services/TranslationService#translatetokenbylocale) as an example.
 
 ```typescript [example.ts]
 import { Component, OnInit, OnDestroy } from "@angular/core";

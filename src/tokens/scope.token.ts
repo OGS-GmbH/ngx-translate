@@ -3,6 +3,7 @@ import { InjectionToken } from "@angular/core";
 /**
  * Injection token that holds a translation scope
  * @readonly
+ * @category NG config
  *
  * @since 1.0.0
  * @author Simon Kovtyk

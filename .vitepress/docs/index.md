@@ -1,9 +1,10 @@
 ---
 layout: home
+isHome: true
 
 hero:
-  text: Translation Engine
-  tagline: Translate with REST integration and confidence in Angular
+  text: ngx-translate
+  tagline: A lightweight, REST-based Angular i18n library designed for seamless internationalization with minimal setup. It supports dynamic language switching & flexible translation management via RESTful APIs.
   actions:
     - theme: brand
       text: Get started
