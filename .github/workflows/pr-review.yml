@@ -10,4 +10,4 @@ on:
 
 jobs:
   call-npm-package-pr-checks:
-    uses: OGS-GmbH/reusable-github-actions/.github/workflows/npm-package-pr-checks.yml@main
+    uses: OGS-GmbH/reusable-github-actions/.github/workflows/npm-package-pr-checks.yml@1.0.2
