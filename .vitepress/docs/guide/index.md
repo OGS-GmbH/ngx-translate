@@ -15,19 +15,19 @@ next: false
 ::: code-group
 
 ```sh [npm]
-$ npm add -D @ogs-gmbh/ngx-translate
+$ npm add @ogs-gmbh/ngx-translate
 ```
 
 ```sh [pnpm]
-$ pnpm add -D @ogs-gmbh/ngx-translate
+$ pnpm add @ogs-gmbh/ngx-translate
 ```
 
 ```sh [yarn]
-$ yarn add -D @ogs-gmbh/ngx-translate
+$ yarn add @ogs-gmbh/ngx-translate
 ```
 
 ```sh [bun]
-$ bun add -D @ogs-gmbh/ngx-translate
+$ bun add @ogs-gmbh/ngx-translate
 ```
 
 :::
