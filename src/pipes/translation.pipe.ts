@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, DestroyRef, Pipe, PipeTransform, inject } from "@angular/core";
 import { SpecificTranslateConfig, TRANSLATION_CONFIG_TOKEN } from "../public-api";
+/* eslint-disable-next-line @tseslint/no-shadow */
 import { Observable, Subject, catchError, distinctUntilChanged, of, switchMap, throwError } from "rxjs";
 import { TRANSLATION_SCOPE_TOKEN } from "../tokens/scope.token";
 import { TranslationService } from "../services/translation.service";
@@ -7,51 +8,21 @@ import { resolveScope } from "../utils/translate.util";
 import { HttpErrorResponse } from "@angular/common/http";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { isEqual } from "es-toolkit";
+import { TranslationSnapshot } from "../types/snapshot.type";
 
 /**
- * Represents a localizable Translation
+ * Core pipe to translate content inside an Angular Template
+ * @category NG pipes
  *
- * @since 1.4.0
- * @author Ian Wenneckers
+ * @since 1.0.0
+ * @author Simon Kovtyk
  */
-export type TransformSnapshot = {
-  /**
-   * Value, that gets piped
-   *
-   * @remarks Will be used as possible fallback value.
-   *
-   * @since 1.4.0
-   * @author Ian Wenneckers
-   */
-  value: string;
-  /**
-   * Token, that was used to translate the value
-   *
-   * @since 1.4.0
-   * @author Ian Wenneckers
-   */
-  token: string;
-  /**
-   * Scope, that was searched for `token`
-   *
-   * @since 1.4.0
-   * @author Ian Wenneckers
-   */
-  scope?: Readonly<string | Array<string | null> | null> | undefined;
-  /**
-   * Flag, that enables fallbacks to `value`
-   *
-   * @since 1.4.0
-   * @author Ian Wenneckers
-   */
-  shouldFallback?: boolean | undefined;
-};
 @Pipe({
   name: "translate",
   pure: false
 })
 export class TranslationPipe implements PipeTransform {
-  private readonly _transformSnapshot$: Subject<TransformSnapshot> = new Subject<TransformSnapshot>();
+  private readonly _translationSnapshot$: Subject<TranslationSnapshot> = new Subject<TranslationSnapshot>();
 
   private readonly _destroyRef: DestroyRef = inject(DestroyRef);
 
@@ -66,17 +37,17 @@ export class TranslationPipe implements PipeTransform {
   private readonly _translationConfig: SpecificTranslateConfig | null = inject(TRANSLATION_CONFIG_TOKEN, { optional: true });
 
   constructor () {
-    this._transformSnapshot$
+    this._translationSnapshot$
       .pipe(
         takeUntilDestroyed(this._destroyRef),
         distinctUntilChanged(isEqual),
-        switchMap((translationInfo: Readonly<TransformSnapshot>) => this._translationService
-          .translateTokenByLocale$(translationInfo.token, translationInfo.value, this._resolveScope(translationInfo.scope))
+        switchMap(({token, value, scope, shouldFallback}: Readonly<TranslationSnapshot>) => this._translationService
+          .translateTokenByLocale$(token, value, this._resolveScope(scope))
           .pipe(
             catchError((_httpErrorResponse: HttpErrorResponse, _: Observable<string>): Observable<string> => {
-              const fallbackToSourceLocale: boolean | undefined = translationInfo.shouldFallback ?? this._translationConfig?.fallbackToSourceLocale;
+              const fallbackToSourceLocale: boolean | undefined = shouldFallback ?? this._translationConfig?.fallbackToSourceLocale;
 
-              return fallbackToSourceLocale ? of(translationInfo.value) : throwError(() => _httpErrorResponse);
+              return fallbackToSourceLocale ? of(value) : throwError(() => _httpErrorResponse);
             }),
             distinctUntilChanged()
           ))
@@ -91,7 +62,7 @@ export class TranslationPipe implements PipeTransform {
    * @param value - The possible fallback value, if no translation was found. Check the `fallback` parameter
    * @param token - The token to be translated
    * @param scope - Optional scope(s) to narrow down the translation search
-   * @param fallback - Optional flag to determine if it should fallback to the source locale when no translation was found. If not provided, the `value` will be used.
+   * @param shouldFallback - Optional flag to determine if it should fallback to the source locale when no translation was found. If not provided, {@link TranslationNotDefinedError} will be thrown instead.
    * @returns The translated token or the fallback value
    *
    * @since 1.0.0
@@ -103,14 +74,12 @@ export class TranslationPipe implements PipeTransform {
     scope?: Readonly<Array<string | null> | string | null>,
     shouldFallback?: boolean
   ): string {
-    const translationInfo: TransformSnapshot = {
+    this._translationSnapshot$.next({
       value,
       token,
       scope,
       shouldFallback
-    };
-
-    this._transformSnapshot$.next(translationInfo);
+    });
 
     return this._lastValue ?? value;
   }

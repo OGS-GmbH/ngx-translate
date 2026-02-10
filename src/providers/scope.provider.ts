@@ -5,7 +5,8 @@ import { ValueProvider } from "@angular/core";
  * Provide a translation scope
  *
  * @param scope - The translation scope to provide
- * @returns A ValueProvider for the translation scope
+ * @returns A `ValueProvider` for the translation scope
+ * @category NG config
  *
  * @since 1.0.0
  * @author Simon Kovtyk

@@ -1,10 +1,15 @@
+---
+prev: false
+next: false
+---
+
 # Provide scopes
 
 ## Usage
 
 In some cases, your application contains translation scopes, that would annoy the user by loading it just in time and would produce flickering at the initial render instead.
 
-For this purpose, you can preload [scopes](/guide/define-a-scope) trough our lib by using the [`provideTranslationPreload`](/reference/functions/provideTranslationPreload) or, if you prefer a reactive way, [`provideTranslationPreloadReactive`](/reference/functions/provideTranslationPreloadReactive).
+For this purpose, you can preload [scopes](/guide/define-a-scope) trough our lib by using the [`provideTranslationPreload`](/reference/NG_config/provideTranslationPreload) or, if you prefer a reactive way, [`provideTranslationPreloadReactive`](/reference/NG_config/provideTranslationPreloadReactive).
 
 ## Example
 

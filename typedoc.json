@@ -8,8 +8,13 @@
   "excludePrivate": true,
   "excludeProtected": true,
   "plugin": [
-    "typedoc-plugin-markdown"
+    "typedoc-plugin-markdown",
+    "typedoc-plugin-frontmatter"
   ],
+  "frontmatterGlobals": {
+    "prev": false,
+    "next": false
+  },
   "lang": "en",
   "entryFileName": "index.md",
   "modulesFileName": "modules.md",
@@ -30,7 +35,7 @@
   "interfacePropertiesFormat": "table",
   "classPropertiesFormat": "table",
   "enumMembersFormat": "table",
-  "router": "kind",
+  "router": "category",
   "navigation": {
     "includeCategories": true,
     "includeGroups": true,

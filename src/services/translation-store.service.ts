@@ -1,14 +1,15 @@
+/* eslint-disable-next-line @tseslint/no-shadow */
 import { BehaviorSubject, Observable, Subject, distinctUntilChanged } from "rxjs";
 import { Injectable, inject } from "@angular/core";
 import { LoadedScope, LoadedScopes, LocaleLoadedScopes, NotifierScope, NotifierScopes, ScopedFile } from "../types/store.type";
 import { LocaleConfig, SpecificTranslateConfig } from "../types/config.type";
-import { CollectingStrategies } from "../enums/collecting-strategies.enum";
+import { CollectingStrategy } from "../enums/collecting-strategy.enum";
 import { LocaleNotDefinedError } from "../errors/locale-not-defined.error";
 import { SourceLocaleNotDefinedError } from "../errors/source-locale-not-defined.error";
 import { TRANSLATION_CONFIG_TOKEN } from "../tokens/config.token";
 
 type StorageAttributes = {
-  collectingStrategy: CollectingStrategies;
+  collectingStrategy: CollectingStrategy;
   locale: {
     type: Storage;
     key: string;
@@ -21,6 +22,13 @@ type StorageAttributes = {
 
 type StoreTranslations = LoadedScopes | LocaleLoadedScopes;
 
+/**
+ * Core service as abstraction layer for translaton storage and state management
+ * @category NG services
+ *
+ * @since 1.0.0
+ * @author Simon Kovtyk
+ */
 @Injectable({
   providedIn: "root"
 })
@@ -36,7 +44,7 @@ export class TranslationStoreService {
   private readonly _locale$: Observable<LocaleConfig>;
 
   private readonly _storageAttributes: StorageAttributes = {
-    collectingStrategy: this._translationConfig.storageConfig?.collectingStrategy ?? CollectingStrategies.CURRENT,
+    collectingStrategy: this._translationConfig.storageConfig?.collectingStrategy ?? CollectingStrategy.CURRENT,
     locale: {
       type: this._translationConfig.storageConfig?.locale?.type ?? window.localStorage,
       key: this._translationConfig.storageConfig?.locale?.key ?? "locale"
@@ -76,9 +84,9 @@ export class TranslationStoreService {
   }
 
   /**
-   * Get the current locale
+   * Get the current {@link LocaleConfig}
    *
-   * @returns The current locale
+   * @returns The current {@link LocaleConfig}
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -88,9 +96,9 @@ export class TranslationStoreService {
   }
 
   /**
-   * Get an observable of the current locale
+   * Get an `Observable` of the current {@link LocaleConfig}
    *
-   * @returns An observable of the current locale
+   * @returns An `Observable` of the current {@link LocaleConfig}
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -100,9 +108,10 @@ export class TranslationStoreService {
   }
 
   /**
-   * Set the current locale
+   * Set the current {@link LocaleConfig}
    *
    * @param locale - The locale to set
+   * @throws {@link LocaleNotDefinedError} if the provided locale is not defined
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -117,7 +126,7 @@ export class TranslationStoreService {
         : this._setStorageValue("locale", locale);
     }
 
-    if (this._translationConfig.storageConfig?.translations?.store && this._translationConfig.storageConfig.collectingStrategy === CollectingStrategies.CURRENT) this._setStorageValue("translations", null);
+    if (this._translationConfig.storageConfig?.translations?.store && this._translationConfig.storageConfig.collectingStrategy === CollectingStrategy.CURRENT) this._setStorageValue("translations", null);
 
     this._locale.next(locale);
   }
@@ -125,7 +134,7 @@ export class TranslationStoreService {
   /**
    * Get all defined locales
    *
-   * @returns An array of all defined locales
+   * @returns An `Array` of all defined locales
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -158,8 +167,8 @@ export class TranslationStoreService {
   /**
    * Get a scoped file
    *
-   * @param scopeName - The name of the scope, the ScopedFile belongs to
-   * @returns `ScopedFile` if found, otherwise `undefined`
+   * @param scopeName - The name of the scope, the {@link ScopedFile} belongs to
+   * @returns if found {@link ScopedFile}, otherwise `undefined`
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -173,7 +182,7 @@ export class TranslationStoreService {
   /**
    * Check if a scoped file exists
    *
-   * @param scopeName - The name of the scope, the ScopedFile belongs to
+   * @param scopeName - The name of the scope, the {@link ScopedFile} belongs to
    * @returns `true` if found, otherwise `false`
    *
    * @since 1.0.0
@@ -188,7 +197,7 @@ export class TranslationStoreService {
   /**
    * Check if scoped files exist
    *
-   * @param scopeNames - An array of scope names, the ScopedFiles belong to
+   * @param scopeNames - An `Array` of scope names, the ScopedFiles belong to
    * @returns `true` if all could be found, otherwise `false`
    *
    * @since 1.0.0
@@ -218,8 +227,8 @@ export class TranslationStoreService {
   /**
    * Check which scopes exist
    *
-   * @param scopeNames - An array of scope names, that should be checked
-   * @returns An array of existing scope names
+   * @param scopeNames - An `Array` of scope names, that should be checked
+   * @returns An `Array` of existing scope names
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -244,7 +253,7 @@ export class TranslationStoreService {
   /**
    * Check if scope names are in notifier scopes
    *
-   * @param scopeNames - An array of scope names, that should be checked
+   * @param scopeNames - An `Array` of scope names, that should be checked
    * @returns `true` if all are found, otherwise `false`
    *
    * @since 1.0.0
@@ -258,8 +267,8 @@ export class TranslationStoreService {
   /**
    * Check which scope names are in notifier scopes
    *
-   * @param scopeNames - An array of scope names, that should be checked
-   * @returns An array of existing scope names
+   * @param scopeNames - An `Array` of scope names, that should be checked
+   * @returns An `Array` of existing scope names
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -269,10 +278,10 @@ export class TranslationStoreService {
   }
 
   /**
-   * Get notifier scope by scope name
+   * Get {@link NotifierScope} by scope name
    *
    * @param scopeName - The name of the scope
-   * @returns `NotifierScope` if found, otherwise `undefined`
+   * @returns if found {@link NotifierScope}, otherwise `undefined`
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -282,10 +291,10 @@ export class TranslationStoreService {
   }
 
   /**
-   * Get notifier scopes by scope names
+   * Get {@link NotifierScopes} by scope names
    *
-   * @param scopeNames - An array of scope names
-   * @returns `NotifierScopes` if found, otherwise `undefined`
+   * @param scopeNames - An `Array` of scope names
+   * @returns if found {@link NotifierScopes}, otherwise `undefined`
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -362,9 +371,9 @@ export class TranslationStoreService {
   }
 
   /**
-   * Get the source locale
+   * Get the source {@link LocaleConfig}
    *
-   * @returns `LocaleConfig` if defined, otherwise `undefined`
+   * @returns if defined {@link LocaleConfig}, otherwise `undefined`
    *
    * @since 1.0.0
    * @author Simon Kovtyk
@@ -394,7 +403,7 @@ export class TranslationStoreService {
   }
 
   private _getScopeByScopeName (scopeName: string | null): LoadedScope | undefined {
-    if (this._storageAttributes.collectingStrategy === CollectingStrategies.ALL) {
+    if (this._storageAttributes.collectingStrategy === CollectingStrategy.ALL) {
       const localeLoadedScopes: LocaleLoadedScopes | null = this._loadedScopes as LocaleLoadedScopes;
 
       if (this._loadedScopes === null) return undefined;
@@ -410,7 +419,7 @@ export class TranslationStoreService {
   }
 
   private _getScopeByScopeNames (scopeNames: ReadonlyArray<string | null>): LoadedScopes | undefined {
-    if (this._storageAttributes.collectingStrategy === CollectingStrategies.ALL) {
+    if (this._storageAttributes.collectingStrategy === CollectingStrategy.ALL) {
       const localeLoadedScopes: LocaleLoadedScopes | null = this._loadedScopes as LocaleLoadedScopes;
 
       if (this._loadedScopes === null) return undefined;
@@ -426,7 +435,7 @@ export class TranslationStoreService {
   }
 
   private _appendScope (scopeName: string | null, file: ScopedFile): void {
-    if (this._storageAttributes.collectingStrategy === CollectingStrategies.ALL) {
+    if (this._storageAttributes.collectingStrategy === CollectingStrategy.ALL) {
       const localeLoadedScopes: LocaleLoadedScopes | null = this._loadedScopes as LocaleLoadedScopes | null;
 
       if (localeLoadedScopes === null) {

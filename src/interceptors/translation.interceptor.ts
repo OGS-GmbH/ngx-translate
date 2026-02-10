@@ -1,12 +1,14 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { LocaleConfig } from "../types/config.type";
+/* eslint-disable-next-line @tseslint/no-shadow */
 import { Observable } from "rxjs";
 import { TranslationStoreService } from "../services/translation-store.service";
 
 /**
  * Interceptor to add the current locale language header to HTTP requests.
- * @remarks Adds a `language` header with the value of the current locale to each outgoing HTTP request.
+ * @remarks Adds a `language` header with `value` of the current {@link LocaleConfig} to each outgoing HTTP request.
+ * @category NG interceptors
  *
  * @since 1.0.0
  * @author Simon Kovtyk

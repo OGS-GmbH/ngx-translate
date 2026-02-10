@@ -1,3 +1,8 @@
+---
+prev: false
+next: false
+---
+
 # Define a token
 
 ## Meaning

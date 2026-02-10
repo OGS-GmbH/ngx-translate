@@ -2,6 +2,7 @@ import { Subject } from "rxjs";
 
 /**
  * Scoped file, that represents a translation set for a specific scope
+ * @category Types
  *
  * @since 1.0.0
  * @author Simon Kovtyk
@@ -9,6 +10,7 @@ import { Subject } from "rxjs";
 export type ScopedFile = Readonly<Record<string, string>>;
 /**
  * Multi Scoped file, that represents multiple translation sets for a specific scopes
+ * @category Types
  *
  * @since 1.0.0
  * @author Simon Kovtyk
@@ -16,6 +18,7 @@ export type ScopedFile = Readonly<Record<string, string>>;
 export type MultiScopedFile = Readonly<Record<string, ScopedFile>>;
 /**
  * Parsed multi scoped file
+ * @category Types
  *
  * @since 1.0.0
  * @author Simon Kovtyk
@@ -38,6 +41,7 @@ export type ParsedMultiScopedFile = {
 };
 /**
  * Parsed multi scoped files
+ * @category Types
  *
  * @since 1.0.0
  * @author Simon Kovtyk
@@ -45,6 +49,7 @@ export type ParsedMultiScopedFile = {
 export type ParsedMultiScopedFiles = ParsedMultiScopedFile[];
 /**
  * Loaded scope
+ * @category Types
  *
  * @since 1.0.0
  * @author Simon Kovtyk
@@ -55,14 +60,23 @@ export type LoadedScope = {
 };
 /**
  * Loaded scope array
+ * @category Types
  *
  * @since 1.0.0
  * @author Simon Kovtyk
  */
 export type LoadedScopes = LoadedScope[];
+/**
+ * Locale loaded scopes
+ * @category Types
+ *
+ * @since 1.0.0
+ * @author Simon Kovtyk
+ */
 export type LocaleLoadedScopes = Record<string, LoadedScopes>;
 /**
  * Notifier scopes (storage)
+ * @category Types
  *
  * @since 1.0.0
  * @author Simon Kovtyk
@@ -85,6 +99,7 @@ export type NotifierScope = {
 };
 /**
  * Notifier scopes array
+ * @category Types
  *
  * @since 1.0.0
  * @author Simon Kovtyk
@@ -92,6 +107,7 @@ export type NotifierScope = {
 export type NotifierScopes = NotifierScope[];
 /**
  * Multi scope based notifier scope
+ * @category Types
  *
  * @since 1.0.0
  * @author Simon Kovtyk
@@ -99,6 +115,7 @@ export type NotifierScopes = NotifierScope[];
 export type MultiScopeBasedNotifierScope = ReadonlyArray<Subject<ScopedFile>> | null;
 /**
  * Mutli scope based notifier scopes
+ * @category Types
  *
  * @since 1.0.0
  * @author Simon Kovtyk

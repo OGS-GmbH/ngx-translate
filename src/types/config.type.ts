@@ -1,8 +1,9 @@
-import { CollectingStrategies } from "../enums/collecting-strategies.enum";
+import { CollectingStrategy } from "../enums/collecting-strategy.enum";
 import { HttpConfig, HttpHeadersOption, HttpOptions } from "@ogs-gmbh/ngx-http";
 
 /**
  * Description of a locale, your app should support
+ * @category NG config
  *
  * @since 1.0.0
  * @author Simon Kovtyk
@@ -34,9 +35,16 @@ export type LocaleConfig = {
    */
   readonly isSource?: boolean;
 };
+/**
+ * Specific translation configuration
+ * @category NG config
+ *
+ * @since 1.0.0
+ * @author Simon Kovtyk
+ */
 export type SpecificTranslateConfig = {
   /**
-   * The locales, your app should support
+   * The locales in Form of {@link LocaleConfig}, your app should support
    * @readonly
    *
    * @since 1.0.0
@@ -76,13 +84,13 @@ export type SpecificTranslateConfig = {
    */
   readonly storageConfig?: {
     /**
-     * The strategy to use for collecting translations to store in the browser storage
+     * The {@link CollectingStrategy} to use for collecting translations to store in the browser storage
      * @readonly
      *
      * @since 1.0.0
      * @author Simon Kovtyk
      */
-    readonly collectingStrategy?: CollectingStrategies | undefined;
+    readonly collectingStrategy?: CollectingStrategy | undefined;
     /**
      * Configuration for storing the current locale in the browser storage
      * @readonly
@@ -154,6 +162,7 @@ export type SpecificTranslateConfig = {
 /**
  * Configuration
  * @readonly
+ * @category NG config
  *
  * @since 1.0.0
  * @author Simon Kovtyk

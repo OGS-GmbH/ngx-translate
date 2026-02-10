@@ -5,8 +5,9 @@ import { ValueProvider } from "@angular/core";
 /**
  * Provide a translation HTTP configuration
  *
- * @param httpConfig - The HTTP configuration to provide
- * @returns A ValueProvider for the translation HTTP configuration
+ * @param httpConfig - The `HttpConfig` to provide
+ * @returns A `ValueProvider` for the translation HTTP configuration
+ * @category NG config
  *
  * @since 1.0.0
  * @author Simon Kovtyk
@@ -17,11 +18,11 @@ export const provideTranslationHttpConfig = (httpConfig: Readonly<HttpConfig>): 
   multi: false
 });
 /**
- * Provide additional translation HTTP options
- * @remarks These HTTP options include headers that will be merged with other HTTP options.
+ * Provide additional translation `HttpOptions`
+ * @remarks These `HttpOptions` include headers that will be merged with other `HttpOptions`.
  *
- * @param httpOptions - The HTTP options to provide
- * @returns A ValueProvider for the translation HTTP options
+ * @param httpOptions - The `HttpOptions` to provide
+ * @returns A `ValueProvider` for the translation `HttpOptions`
  *
  * @since 1.0.0
  * @author Simon Kovtyk
