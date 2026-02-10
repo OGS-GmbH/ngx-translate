@@ -1,6 +1,6 @@
 {
 	"name": "@ogs-gmbh/ngx-translate",
-	"version": "1.4.0",
+	"version": "2.0.0",
 	"description": "A lightweight, REST-based Angular i18n library designed for seamless internationalization with minimal setup. It supports dynamic language switching & flexible translation management via RESTful APIs.",
 	"keywords": [
 		"i18n",
@@ -28,7 +28,7 @@
 		"ci:docs:main:vitepress": "bash ./.vitepress/scripts/pre-vitepress.sh && vitepress build .vitepress",
 		"ci:pr:commitlint:main:commitlint": "commitlint",
 		"ci:pr:lint:main:eslint": "eslint .",
-    "commit": "commit",
+		"commit": "commit",
 		"prepare": "husky",
 		"vitepress": "bash ./.vitepress/scripts/pre-vitepress.sh && vitepress dev .vitepress",
 		"vitepress-preview": "vitepress preview .vitepress"

@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/OGS-GmbH/ngx-translate/compare/v1.4.0...v2.0.0) (2026-02-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* upgrade to angular 21
+
+### Miscellaneous Chores
+
+* upgrade to angular 21 ([4faf96c](https://github.com/OGS-GmbH/ngx-translate/commit/4faf96c884036ecd8509d96a63406600a085e712))
+
 ## [1.4.0](https://github.com/OGS-GmbH/ngx-translate/compare/v1.3.0...v1.4.0) (2025-12-15)
 
 
